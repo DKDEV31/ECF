@@ -4,6 +4,50 @@ $secondary-color: linear-gradient();
 $primary-font-color: #c9c8c8;
 $secondary-font-color: '';
 $font: 'Inter';
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     background-color: $background-color;
+    min-height: 100vh;
+    min-width: 375px;
+    font-family: $font;
+    color: $primary-font-color;
 }
+footer{
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+header{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .navbar{
+        margin-left: 20px;
+        display: none;
+    }
+    .navmenu{
+        margin-left: auto;
+    }
+    .dropdown-menu{
+        display: flex;
+        cursor: pointer;
+        p{
+            margin-right: 10px;
+        }
+    }
+}
+.link{
+    text-decoration: none;
+    color: $primary-font-color;
+}
+.container{
+    margin: 40px 0;
+    width: 100%;
+}
+

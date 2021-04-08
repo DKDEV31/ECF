@@ -2,7 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}BanqIo{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -12,23 +15,60 @@
         {% endblock %}
     </head>
     <body>
-        <header class="header">
+        <header>
             <div class="logo">
-
+                <img src="{{ asset('/svg/surface1.svg') }}" alt="logo bank">
             </div>
             <nav class="navbar">
-
+                <a href="#"class="link">Acceuil</a>
+                <a href="#"class="link">Nos produits bancaires</a>
+                <a href="#"class="link">Contact</a>
             </nav>
             <div class="navmenu">
-
+                <div class="dropdown-menu" role="button">
+                    <p>Menu</p>
+                    <img src="{{ asset('/svg/Arrow Down.svg') }}" alt="Arrow Down">
+                </div>
             </div>
         </header>
-        {% block content %}
-        {% endblock %}
-        <footer class="footer">
-            <p class="footer-text">
-
-            </p>
+        <div class="container">
+            {% block content %}
+                <main>
+                    <div class="fonction-container">
+                        <div class="fonction-content">
+                            <h4>Lorem ipsum</h4>
+                            <p>nfurngnurugurguurungrngurngur
+                            grnugnurngnunrungrngnrngnrjgnunrgr
+                            grgnuruigehuigeuiguiernguneruinguiern
+                            grnrygurenugneruinguieruignerunguernu</p>
+                        </div>
+                        <img src="{{ asset('/svg/online-payment-svg.svg') }}" alt="online payments" class="fonction_img">
+                    </div>
+                    <div class="fonction-container">
+                        <div class="fonction-content">
+                            <h4>Lorem ipsum</h4>
+                            <p>nfurngnurugurguurungrngurngur
+                                grnugnurngnunrungrngnrngnrjgnunrgr
+                                grgnuruigehuigeuiguiernguneruinguiern
+                                grnrygurenugneruinguieruignerunguernu</p>
+                        </div>
+                        <img src="{{ asset('/svg/transfer-money.svg') }}" alt="online payments" class="fonction_img">
+                    </div>
+                    <div class="fonction-container">
+                        <div class="fonction-content">
+                            <h4>Lorem ipsum</h4>
+                            <p>nfurngnurugurguurungrngurngur
+                                grnugnurngnunrungrngnrngnrjgnunrgr
+                                grgnuruigehuigeuiguiernguneruinguiern
+                                grnrygurenugneruinguieruignerunguernu</p>
+                        </div>
+                        <img src="{{ asset('/svg/personal-finance.svg') }}" alt="online payments" class="fonction_img">
+                    </div>
+                </main>
+            {% endblock %}
+        </div>
+        <footer>
+            <p class="footer-text">Copyright Banqio 2021 - <a href="#" class="link footer-text-link">Mentions légales</a></p>
         </footer>
     </body>
 </html>
