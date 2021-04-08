@@ -31,6 +31,16 @@
                 </div>
             </div>
         </header>
+        {% block callToAction %}
+        <div class="call-to-action">
+            <img src="{{ asset('/svg/credit-card.svg') }}" alt="card img" class="call-to-action-img">
+            <div class="call-to-action-content">
+                <h2>Lorem ipsum</h2>
+                <p>subtitle</p>
+                <a href="#" class="btn" role="button">Do this</a>
+            </div>
+        </div>
+        {% endblock %}
         <div class="container">
             {% block content %}
                 <main>
