@@ -1,3 +1,118 @@
+$background-color: #1F2324;
+$primary-btn-color: linear-gradient(#64C4B9, #19E8E3);
+$secondary-btn-color: linear-gradient(#C1BCFD,#3489E0);
+$primary-font-color: #c9c8c8;
+$secondary-font-color: '';
+$font: 'Inter';
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
-    background-color: lightgray;
+    background-color: $background-color;
+    min-height: 100vh;
+    min-width: 375px;
+    font-family: $font;
+    color: $primary-font-color;
+}
+footer{
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+header{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .navbar{
+        margin-left: 20px;
+        display: none;
+        .link{
+            margin-left: 15px;
+            &:first-child{
+                margin:0;
+            }
+        }
+    }
+    .navmenu{
+        margin-left: auto;
+    }
+    .dropdown-menu{
+        display: flex;
+        cursor: pointer;
+        p{
+            margin-right: 10px;
+        }
+    }
+}
+.link{
+    text-decoration: none;
+    color: $primary-font-color;
+}
+.container{
+    margin: 40px 0;
+}
+.call-to-action{
+    display: none;
+    width: 538px;
+    margin: auto;
+    justify-content: space-between;
+    padding: 30px;
+    align-items: center;
+    .call-to-action-img{
+        width: 260px;
+        height: auto;
+    }
+    .call-to-action-content{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        .btn{
+            margin-top:20px;
+        }
+    }
+}
+.btn{
+    padding: 15px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    font-family: $font;
+    background: $primary-btn-color;
+    cursor: pointer;
+    &-info{
+        @extend .btn;
+        background: $secondary-font-color;
+    }
+}
+
+@media screen and (min-width: 425px){
+    .container{
+        margin: 40px 40px;
+    }
+}
+@media screen and (min-width: 700px){
+    .call-to-action{
+        display: flex;
+    }
+    header{
+        .navbar{
+            display: block;
+        }
+    }
+
+}
+@media screen and (min-width: 1024px){
+    .container{
+        margin: 40px 150px;
+    }
+}
+@media screen and (min-width: 1440px){
+    .container{
+        margin: 40px 250px;
+    }
 }
