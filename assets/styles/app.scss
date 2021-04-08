@@ -56,4 +56,30 @@ header{
     margin: 40px 0;
     width: 100%;
 }
+@media screen and (min-width: 425px){
+    .container{
+        margin: 40px 40px;
+    }
+}
+@media screen and (min-width: 700px){
+    .call-to-action{
+        display: flex;
+    }
+    header{
+        .navbar{
+            display: block;
+        }
+    }
+
+}
+@media screen and (min-width: 1024px){
+    .container{
+        margin: 40px 150px;
+    }
+}
+@media screen and (min-width: 1440px){
+    .container{
+        margin: 40px 250px;
+    }
+}
 
