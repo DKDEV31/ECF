@@ -54,8 +54,42 @@ header{
 }
 .container{
     margin: 40px 0;
-    width: 100%;
 }
+.call-to-action{
+    display: none;
+    width: 538px;
+    margin: auto;
+    justify-content: space-between;
+    padding: 30px;
+    align-items: center;
+    .call-to-action-img{
+        width: 260px;
+        height: auto;
+    }
+    .call-to-action-content{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        .btn{
+            margin-top:20px;
+        }
+    }
+}
+.btn{
+    padding: 15px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    font-family: $font;
+    background: $primary-btn-color;
+    cursor: pointer;
+    &-info{
+        @extend .btn;
+        background: $secondary-font-color;
+    }
+}
+
 @media screen and (min-width: 425px){
     .container{
         margin: 40px 40px;
@@ -82,4 +116,3 @@ header{
         margin: 40px 250px;
     }
 }
-
