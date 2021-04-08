@@ -30,6 +30,12 @@ header{
     .navbar{
         margin-left: 20px;
         display: none;
+        .link{
+            margin-left: 15px;
+            &:first-child{
+                margin:0;
+            }
+        }
     }
     .navmenu{
         margin-left: auto;
