@@ -22,7 +22,7 @@
             <nav class="navbar">
                 <a href="{{ path('app_home') }}"class="link">Acceuil</a>
                 <a href="{{ path('app_bank_product') }}"class="link">Nos produits bancaires</a>
-                <a href="#"class="link">Contact</a>
+                <a href="{{ path('app_contact_us') }}"class="link">Contact</a>
             </nav>
             <div class="navmenu">
                 <div class="dropdown-menu" role="button">
@@ -31,6 +31,22 @@
                 </div>
             </div>
         </header>
+        <div class="navToggleMenu">
+            <a href="" class="link">Connexion</a>
+            <a href="" class="link">Inscription</a>
+            {% if app.user.roles is defined and app.user.roles == 'ROLE_CLIENT'%}
+                <a href="" class="link">Mes comptes</a>
+                <a href="" class="link">Mes virements</a>
+                <a href="" class="link">Mes demandes</a>
+                <a href="" class="link">Mes bénéficiaires</a>
+                <a href="" class="link">Déconnexion</a>
+            {% endif %}
+            {% if app.user.roles is defined and app.user.roles == 'ROLE_BANKER' %}
+                <a href="#" class="link">Demandes</a>
+                <a href="#" class="link">Clients</a>
+                <a href="#" class="link">Déconnexion</a>
+            {% endif %}
+        </div>
         {% block callToAction %}
         <div class="call-to-action">
             <img src="{{ asset('/svg/credit-card.svg') }}" alt="card img" class="call-to-action-img">
