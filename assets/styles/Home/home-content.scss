@@ -1,9 +1,10 @@
+$light-background-color: rgba(201, 200, 200, 0.1);
 main{
   display:grid;
   grid-auto-flow: row;
   gap: 15px;
   .fonction-container {
-    background-color: rgba(201, 200, 200, 0.1);
+    background-color: $light-background-color;
     padding: 20px;
     display: flex;
     flex-direction: column;
