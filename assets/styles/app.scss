@@ -14,6 +14,7 @@ body {
     min-height: 100vh;
     min-width: 375px;
     font-family: $font;
+    position: relative;
     color: $primary-font-color;
 }
 footer{
@@ -43,14 +44,54 @@ header{
     .dropdown-menu{
         display: flex;
         cursor: pointer;
+        color: $primary-font-color;
+        transition: all .3s ease-in-out;
         p{
             margin-right: 10px;
         }
+        img{
+            transition: transform 0.3s ease-in-out;
+        }
+        &:hover{
+            color: #64C4B9;
+        }
+        &.active{
+            color: #64C4B9;
+            img{
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
+.navToggleMenu{
+    position: absolute;
+    top: 83px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    overflow: hidden;
+    background-color: $background-color;
+    padding: 0;
+    height: 0;
+    z-index: 9999;
+    transition: all .3s linear;
+    .link{
+        text-align: center;
+        font-size: 1.3em;
+    }
+    &.active{
+        padding: 10px 30px;
+        height: 100%;
     }
 }
 .link{
     text-decoration: none;
     color: $primary-font-color;
+    &:hover{
+        color: #64C4B9;
+    }
+    transition: all ease-in-out 0.3s;
 }
 .container{
     margin: 40px 0;
@@ -98,6 +139,27 @@ header{
     .container{
         margin: 40px 40px;
     }
+    .navToggleMenu{
+        right: 0;
+        width: auto;
+        transform-origin: top center;
+        background-color: rgba(255,255,255,0.1);
+        font-size: 0.8em;
+        //transition: height ease-in-out 2s ;
+        &.active{
+            animation-name: dropdownMenu;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-timing-function: ease-in-out;
+        }
+        //&.desactive{
+        //    animation-name: dropdownMenu;
+        //    animation-duration: 2s;
+        //    animation-fill-mode: backwards;
+        //    animation-timing-function: ease-in-out;
+        //    //animation-direction: reverse;
+        //}
+    }
 }
 @media screen and (min-width: 700px){
     .call-to-action{
@@ -119,4 +181,14 @@ header{
     .container{
         margin: 40px 250px;
     }
+}
+@keyframes dropdownMenu {
+    0%{
+        height: 0%;
+    }
+    100%{
+
+        height: 50%;
+    }
+
 }
