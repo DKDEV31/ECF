@@ -54,6 +54,10 @@ header{
 }
 .container{
     margin: 40px 0;
+    min-height: calc(100vh - calc(85px + 60px + 80px));
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 .call-to-action{
     display: none;
@@ -86,7 +90,7 @@ header{
     cursor: pointer;
     &-info{
         @extend .btn;
-        background: $secondary-font-color;
+        background: $secondary-btn-color;
     }
 }
 

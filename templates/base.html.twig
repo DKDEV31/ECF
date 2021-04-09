@@ -7,11 +7,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('home') }}
         {% endblock %}
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('home') }}
         {% endblock %}
     </head>
     <body>
@@ -21,7 +21,7 @@
             </div>
             <nav class="navbar">
                 <a href="{{ path('app_home') }}"class="link">Acceuil</a>
-                <a href="#"class="link">Nos produits bancaires</a>
+                <a href="{{ path('app_bank_product') }}"class="link">Nos produits bancaires</a>
                 <a href="#"class="link">Contact</a>
             </nav>
             <div class="navmenu">
