@@ -29,6 +29,8 @@ class RegistrationController extends AbstractController
                 $form->get('city')->getData()
             );
             $user->setAdress($adress);
+            //set default role
+            $user->setRoles(['ROLE_CLIENT']);
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
