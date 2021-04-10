@@ -36,16 +36,18 @@
             </div>
         </header>
         <div class="navToggleMenu">
+            {% if app.user.roles is not defined %}
             <a href="{{ path('app_login') }}" class="link">Connexion</a>
             <a href="{{ path('app_register') }}" class="link">Inscription</a>
-            {% if app.user.roles is defined and app.user.roles == 'ROLE_CLIENT'%}
+            {% endif %}
+            {% if app.user.roles is defined and 'ROLE_CLIENT' in app.user.roles %}
                 <a href="" class="link">Mes comptes</a>
                 <a href="" class="link">Mes virements</a>
                 <a href="" class="link">Mes demandes</a>
                 <a href="" class="link">Mes bénéficiaires</a>
                 <a href="" class="link">Déconnexion</a>
             {% endif %}
-            {% if app.user.roles is defined and app.user.roles == 'ROLE_BANKER' %}
+            {% if app.user.roles is defined and 'ROLE_BANKER' in app.user.roles %}
                 <a href="#" class="link">Demandes</a>
                 <a href="#" class="link">Clients</a>
                 <a href="#" class="link">Déconnexion</a>
