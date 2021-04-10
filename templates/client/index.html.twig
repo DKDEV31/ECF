@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ClientController!{% endblock %}
+{% block title %}Votre espace client{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('client') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('client') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <div class="grid-container">
+        <aside class="side-menu">
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Benjamin/Documents/Web/ECF/BanqIo/src/Controller/ClientController.php'|file_link(0) }}">src/Controller/ClientController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Benjamin/Documents/Web/ECF/BanqIo/templates/client/index.html.twig'|file_link(0) }}">templates/client/index.html.twig</a></code></li>
-    </ul>
-</div>
+        </aside>
+        <div class="button-container">
+            <button class="btn-danger">Supprimer un compte </button>
+            <button class="btn-info">Ajouter un compte</button>
+        </div>
+        <main class="main-menu">
+{#            Si le client n'a aucun compte alors création du compte#}
+            <p>Veuillez créer un compte</p>
+        </main>
+    </div>
 {% endblock %}
