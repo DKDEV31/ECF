@@ -14,9 +14,16 @@ class AuthController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+         if ($this->getUser()) {
+             $role = $this->getUser()->getRoles();
+             if($role === 'ROLE_CLIENT'){
+                 return $this->redirectToRoute('/Client');
+             } else if($role === 'ROLE_BANKER'){
+                 return $this->redirectToRoute('/Banker');
+             } else {
+                 return $this->redirectToRoute('/');
+             }
+         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
