@@ -7,8 +7,6 @@
 
 // any CSS you import will output into a single css file (app.scss in this case)
 import './styles/app.scss';
-import './styles/Home/home-content.scss';
-import {gsap} from 'gsap'
 
 const navMenuToggle = document.querySelector('.dropdown-menu')
 const navMenuBlock = document.querySelector('.navToggleMenu')

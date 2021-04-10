@@ -20,7 +20,12 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.scss) if your JavaScript imports CSS.
      */
-    .addEntry('home', './assets/app.js')
+    .addEntry('banker', './assets/banker.js')
+    .addEntry('client', './assets/client.js')
+    .addEntry('register', './assets/register.js')
+    .addEntry('login', './assets/login.js')
+    .addEntry('app', './assets/app.js')
+    .addEntry('home', './assets/home.js')
     .addEntry('bankProduct', './assets/bankProduct.js')
     .addEntry('Contact', './assets/Contact.js')
 

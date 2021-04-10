@@ -1,6 +1,7 @@
 $background-color: #1F2324;
 $primary-btn-color: linear-gradient(#64C4B9, #19E8E3);
 $secondary-btn-color: linear-gradient(#C1BCFD,#3489E0);
+$third-btn-color: linear-gradient(#FFB5A3,#FD79A8);
 $primary-font-color: #c9c8c8;
 $secondary-font-color: '';
 $font: 'Inter';
@@ -83,7 +84,7 @@ header{
     gap: 15px;
     width: 100%;
     overflow: hidden;
-    background-color: $background-color;
+    background: $background-color;
     padding: 0;
     height: 0;
     z-index: 9999;
@@ -145,8 +146,86 @@ header{
         @extend .btn;
         background: $secondary-btn-color;
     }
+    &-danger{
+        @extend .btn;
+        background: $third-btn-color;
+    }
 }
+//Forms settings
+.form-container{
+    padding: 20px;
+    border-radius: 14px;
+    background-color: rgba(255,255,255,0.1);
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        button{
+            width: 100%;
+            padding: 10px;
+            outline: none;
+            border: none;
+        }
+    }
 
+}
+.form-row,
+.form-email,
+.form-password,
+.form-phone,
+.form-birthdate,
+.form-zipcode,
+.form-adress,
+.form-city,
+.form-zipcode
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    input{
+        height: 35px;
+        background: #1F2324;
+        border: none;
+        color: white;
+        border-radius: 7px;
+        margin-top: 5px;
+        padding: 10px;
+        outline: none;
+        &:focus{
+            border: 2px solid #3489E0;
+        }
+    }
+    label{
+        font-size: 0.8em;
+    }
+
+}
+.form-birthdate{
+    input{
+        width: 100%;
+    }
+}
+.form-phone{
+    input{
+        width: 100%;
+    }
+}
+.form-adress{
+    input{
+        width: 100%;
+    }
+}
+.form-password{
+    input{
+        width: 100%;
+    }
+}
+.form-email{
+    input{
+        width: 100%;
+    }
+}
+//Media queries
 @media screen and (min-width: 425px){
     .container{
         margin: 40px 40px;
@@ -156,7 +235,7 @@ header{
         display: none;
         padding: 10px 30px;
         border-radius: 0 0 4px 4px;
-        background-color: rgba(255,255,255,0.1);
+        background-color: #525B5B;
         font-size: 0.8em;
         &.active{
             width: auto;
@@ -186,13 +265,3 @@ header{
         margin: 40px 250px;
     }
 }
-//@keyframes dropdownMenu {
-//    0%{
-//        max-width: 100%;
-//    }
-//    100%{
-//        max-width: 100%;
-//        max-height: 100%;
-//    }
-//
-//}

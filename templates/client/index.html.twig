@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre espace client{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('client') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('client') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <div class="grid-container">
+        <aside class="side-menu">
+
+        </aside>
+        <div class="button-container">
+            <button class="btn-danger">Supprimer un compte </button>
+            <button class="btn-info">Ajouter un compte</button>
+        </div>
+        <main class="main-menu">
+{#            Si le client n'a aucun compte alors création du compte#}
+            <p>Veuillez créer un compte</p>
+        </main>
+    </div>
+{% endblock %}
