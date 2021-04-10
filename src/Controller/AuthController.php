@@ -16,15 +16,14 @@ class AuthController extends AbstractController
     {
          if ($this->getUser()) {
              $role = $this->getUser()->getRoles();
-             if($role === 'ROLE_CLIENT'){
+             if(in_array('ROLE_CLIENT', $role)){
                  return $this->redirectToRoute('/Client');
-             } else if($role === 'ROLE_BANKER'){
+             } else if(in_array('ROLE_BANKER', $role)){
                  return $this->redirectToRoute('/Banker');
              } else {
-                 return $this->redirectToRoute('/');
+                 return $this->redirectToRoute('app_home');
              }
          }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
