@@ -1,6 +1,7 @@
 $background-color: #1F2324;
 $primary-btn-color: linear-gradient(#64C4B9, #19E8E3);
 $secondary-btn-color: linear-gradient(#C1BCFD,#3489E0);
+$third-btn-color: linear-gradient(#FFB5A3,#FD79A8);
 $primary-font-color: #c9c8c8;
 $secondary-font-color: '';
 $font: 'Inter';
@@ -145,6 +146,10 @@ header{
         @extend .btn;
         background: $secondary-btn-color;
     }
+    &-danger{
+        @extend .btn;
+        background: $third-btn-color;
+    }
 }
 //Forms settings
 .form-container{
@@ -260,13 +265,3 @@ header{
         margin: 40px 250px;
     }
 }
-//@keyframes dropdownMenu {
-//    0%{
-//        max-width: 100%;
-//    }
-//    100%{
-//        max-width: 100%;
-//        max-height: 100%;
-//    }
-//
-//}
