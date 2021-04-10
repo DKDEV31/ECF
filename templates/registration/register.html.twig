@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+{% block callToAction %}{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('register') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('register') }}
+{% endblock %}
+
+{% block content%}
+    <main class="form-container">
+        {{ form_start(form) }}
+        <div class="name-form-container">
+            {{ form_row(form.firstname) }}
+            {{ form_row(form.lastname) }}
+        </div>
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.adress) }}
+        <div class="adress-form-container">
+            {{ form_row(form.zipcode) }}
+            {{ form_row(form.city) }}
+        </div>
+        {{ form_row(form.phone) }}
+        {{ form_row(form.birthDate) }}
+        {{ form_end(form) }}
+    </main>
+{% endblock %}
