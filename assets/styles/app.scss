@@ -83,7 +83,7 @@ header{
     gap: 15px;
     width: 100%;
     overflow: hidden;
-    background-color: $background-color;
+    background: $background-color;
     padding: 0;
     height: 0;
     z-index: 9999;
@@ -156,7 +156,7 @@ header{
         display: none;
         padding: 10px 30px;
         border-radius: 0 0 4px 4px;
-        background-color: rgba(255,255,255,0.1);
+        background-color: #525B5B;
         font-size: 0.8em;
         &.active{
             width: auto;
