@@ -61,5 +61,20 @@ class BankerController extends AbstractController
        //notification du bon déroulement de l'operation.
        //envoie d'une notification a l'utilisateur pour l'informer de la création de son compte.
     }
+    #[Route('/banker/account/delete/{id}', name: 'app_banker_account_create')]
+    public function deleteAccount($id, EntityManagerInterface $entity): Response
+    {
+        $request = $entity->getRepository(RequestDelete::class)->findOneBy(['id' => $id]);
+        $accountId = $request->getAccount()->getId();
+        $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
+        $request
+            ->setState('Validé')
+            ->setAccount(null);
+        $entity->persist($request);
+        $entity->flush();
+        $entity->remove($account);
+        $entity->flush();
+        return $this->redirectToRoute('app_banker_request');
+    }
 
 }
