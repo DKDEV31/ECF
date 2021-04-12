@@ -109,5 +109,4 @@ class RequestAccount
     {
         return $this->Client;
     }
-
 }

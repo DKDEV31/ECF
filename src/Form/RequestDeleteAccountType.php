@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\RequestAccount;
+use App\Entity\RequestDelete;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -21,7 +22,7 @@ class RequestDeleteAccountType extends AbstractType
                 'mapped' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Demande de compte',
+                'label' => 'Demande de cloture',
                 'attr' => ['class' => 'btn-info']
             ])
         ;
@@ -30,7 +31,7 @@ class RequestDeleteAccountType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => RequestAccount::class,
+            'data_class' => RequestDelete::class,
         ]);
     }
 }
