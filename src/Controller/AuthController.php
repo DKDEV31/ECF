@@ -17,9 +17,9 @@ class AuthController extends AbstractController
          if ($this->getUser()) {
              $role = $this->getUser()->getRoles();
              if(in_array('ROLE_CLIENT', $role)){
-                 return $this->redirectToRoute('/Client');
+                 return $this->redirectToRoute('app_client');
              } else if(in_array('ROLE_BANKER', $role)){
-                 return $this->redirectToRoute('/Banker');
+                 return $this->redirectToRoute('app_banker');
              } else {
                  return $this->redirectToRoute('app_home');
              }

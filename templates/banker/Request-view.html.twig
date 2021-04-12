@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande N°{{ request.id }}{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('banker') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('banker') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <div class="grid-container">
+        <aside class="side-menu">
+
+        </aside>
+        <main class="main-menu">
+            <p>Nom: {{ client.lastname }}</p>
+            <p>Prénom: {{ client.firstname }}</p>
+            <p>Type de demande: {{ request.type }}</p>
+            <img src="{{ asset('CNI/' ~ request.idCard) }}" alt="CNI" class="request-view-img">
+            <a href="/banker/account/create/{{ request.id }}" class="btn">Accepter la demande</a>
+            <a href="/banker/request/deny" class="btn-danger">Refuser la demande</a>
+        </main>
+    </div>
+{% endblock %}

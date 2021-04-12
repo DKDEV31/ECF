@@ -14,6 +14,31 @@
     text-align: center;
   }
 }
+.client-container{
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100px;
+  padding: 10px;
+  align-items: center;
+  background: #666666;
+  border-radius: 7px;
+  position: relative;
+  overflow: hidden;
+}
+.client-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  z-index: 3;
+  span:nth-child(1){
+    color: #64C4B9;
+  }
+}
+.client-style{
+  display: none;
+}
 .side-menu{
   display: none;
 }
@@ -21,4 +46,34 @@
   .main-menu{
     border-radius: 0;
   }
+}
+@media screen and (min-width: 768px){
+  .client-container{
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    position: static;
+    .client-info{
+      justify-content: initial;
+      align-items: initial;
+      gap: 5px;
+    }
+    .client-style{
+      justify-self: right;
+      max-width: 70%;
+      position: relative;
+      display: block;
+      .client-style-img{
+        width: 100%;
+        height: 100px;
+      }
+      .client-style-gradient{
+        background: linear-gradient(90deg, #666666, rgba(56, 56, 56, 0));
+        width: 100%;
+        height: 100%;
+        position: absolute;
+
+      }
+    }
+  }
+
 }

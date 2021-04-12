@@ -2,63 +2,35 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-
-abstract class User implements UserInterface
+/**
+ * @ORM\Entity(repositoryClass=ClientRepository::class)
+ * @UniqueEntity(fields={"email"}, message="Ce mail est déja utilisé")
+ */
+class Client extends User
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    protected $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\OneToMany(targetEntity=RequestAccount::class, mappedBy="Client")
      */
-    protected $email;
+    private $AccountRequest;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\OneToMany(targetEntity=Account::class, mappedBy="Client")
      */
-    protected $roles = [];
+    private $Accounts;
 
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
-    protected $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $firstname;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $lastname;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $adress;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $phone;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    protected $birthDate;
+    public function __construct()
+    {
+        $this->AccountRequest = new ArrayCollection();
+        $this->Accounts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -94,7 +66,7 @@ abstract class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_CLIENT';
 
         return array_unique($roles);
     }
@@ -141,65 +113,63 @@ abstract class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getFirstname(): ?string
+    /**
+     * @return Collection|RequestAccount[]
+     */
+    public function getAccountRequest(): Collection
     {
-        return $this->firstname;
+        return $this->AccountRequest;
     }
 
-    public function setFirstname(string $firstname): self
+    public function addAccountRequest(RequestAccount $accountRequest): self
     {
-        $this->firstname = $firstname;
+        if (!$this->AccountRequest->contains($accountRequest)) {
+            $this->AccountRequest[] = $accountRequest;
+            $accountRequest->setClient($this);
+        }
 
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function removeAccountRequest(RequestAccount $accountRequest): self
     {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
+        if ($this->AccountRequest->removeElement($accountRequest)) {
+            // set the owning side to null (unless already changed)
+            if ($accountRequest->getClient() === $this) {
+                $accountRequest->setClient(null);
+            }
+        }
 
         return $this;
     }
 
-
-    public function getAdress(): ?string
+    /**
+     * @return Collection|Account[]
+     */
+    public function getAccounts(): Collection
     {
-        return $this->adress;
+        return $this->Accounts;
     }
 
-    public function setAdress(string $adress): self
+    public function addAccount(Account $account): self
     {
-        $this->adress = $adress;
+        if (!$this->Accounts->contains($account)) {
+            $this->Accounts[] = $account;
+            $account->setClient($this);
+        }
 
         return $this;
     }
 
-    public function getPhone(): ?int
+    public function removeAccount(Account $account): self
     {
-        return $this->phone;
-    }
-
-    public function setPhone(int $phone): self
-    {
-        $this->phone = $phone;
+        if ($this->Accounts->removeElement($account)) {
+            // set the owning side to null (unless already changed)
+            if ($account->getClient() === $this) {
+                $account->setClient(null);
+            }
+        }
 
         return $this;
     }
-
-    public function getBirthDate(): ?\DateTimeInterface
-    {
-        return $this->birthDate;
-    }
-
-    public function setBirthDate(\DateTimeInterface $birthDate): self
-    {
-        $this->birthDate = $birthDate;
-
-        return $this;
-    }
-
 }

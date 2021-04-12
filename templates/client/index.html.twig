@@ -16,13 +16,23 @@
         <aside class="side-menu">
 
         </aside>
-        <div class="button-container">
-            <button class="btn-danger">Supprimer un compte </button>
-            <button class="btn-info">Ajouter un compte</button>
-        </div>
         <main class="main-menu">
-{#            Si le client n'a aucun compte alors création du compte#}
+            {% if accounts is empty %}
             <p>Veuillez créer un compte</p>
+            {% else %}
+            {% for account in accounts %}
+                <div class="account-container">
+                    <div class="account-content">
+                        <span>{{ account.type }}</span>
+                        <span>{{ account.amount }}€</span>
+                    </div>
+                    <div class="accoun-actions">
+                        <a href="#" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
+                    </div>
+                </div>
+            {% endfor %}
+            <a href="{{ path('app_account_add') }}" class="btn-info addAccount">Ajouter un compte</a>
+            {% endif %}
         </main>
     </div>
 {% endblock %}

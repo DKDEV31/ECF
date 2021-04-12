@@ -30,7 +30,7 @@ class RegistrationController extends AbstractController
             );
             $user->setAdress($adress);
             //set default role
-            $user->setRoles(['ROLE_CLIENT']);
+            $user->setRoles(['ROLE_BANKER']);
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
