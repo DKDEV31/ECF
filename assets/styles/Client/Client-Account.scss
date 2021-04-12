@@ -7,23 +7,21 @@
 }
 .main-menu{
   width : 100%;
+  display: grid;
+  grid-auto-flow: row;
+  gap: 10px;
   background-color: rgba(255,255,255,0.1);
   border-radius: 14px;
   padding: 20px;
   p{
     text-align: center;
   }
+  .addAcount{
+    text-align: center;
+  }
 }
 .side-menu{
   display: none;
-}
-.button-container{
-  display: flex;
-  justify-content: space-between;
-  button{
-    border: none;
-    padding: 10px;
-  }
 }
 @media screen and (max-width: 400px){
   .main-menu{
