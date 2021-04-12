@@ -19,6 +19,7 @@
         <main class="main-menu">
             {% if accounts is empty %}
             <p>Veuillez créer un compte</p>
+            <a href="{{ path('app_account_add') }}" class="btn-info addAccount">Ajouter un compte</a>
             {% else %}
             {% for account in accounts %}
                 <div class="account-container">
