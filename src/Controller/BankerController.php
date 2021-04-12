@@ -14,19 +14,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class BankerController extends AbstractController
 {
     #[Route('/banker', name: 'app_banker')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entity): Response
     {
         $accountRequests = $this->getUser()->getAccountRequest();
         $deleteRequests = $this->getUser()->getRequestDeletes();
-        $clients = [];
+        $clientIds = [];
         foreach ($accountRequests as $request){
-            $clients[] = $request->getClient();
+            $clientIds[] = $request->getClient()->getId();
         }
         foreach ($deleteRequests as $request){
-            $clients[] = $request->getClient();
+            $clientIds[] = $request->getClient()->getId();
         }
+        $clients = $entity->getRepository(Client::class)->findBy(['id' => array_unique($clientIds)]);
         return $this->render('banker/index.html.twig', [
-            'clients' => array_unique($clients),
+            'clients' => $clients,
         ]);
     }
 
@@ -86,7 +87,8 @@ class BankerController extends AbstractController
        //notification du bon déroulement de l'operation.
        //envoie d'une notification a l'utilisateur pour l'informer de la création de son compte.
     }
-    #[Route('/banker/account/delete/{id}', name: 'app_banker_account_create')]
+    
+    #[Route('/banker/account/delete/{id}', name: 'app_banker_account_delete')]
     public function deleteAccount($id, EntityManagerInterface $entity): Response
     {
         $request = $entity->getRepository(RequestDelete::class)->findOneBy(['id' => $id]);
