@@ -26,10 +26,16 @@ class Client extends User
      */
     private $Accounts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=RequestDelete::class, mappedBy="Client")
+     */
+    private $requestDeletes;
+
     public function __construct()
     {
         $this->AccountRequest = new ArrayCollection();
         $this->Accounts = new ArrayCollection();
+        $this->requestDeletes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,6 +173,36 @@ class Client extends User
             // set the owning side to null (unless already changed)
             if ($account->getClient() === $this) {
                 $account->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RequestDelete[]
+     */
+    public function getRequestDeletes(): Collection
+    {
+        return $this->requestDeletes;
+    }
+
+    public function addRequestDelete(RequestDelete $requestDelete): self
+    {
+        if (!$this->requestDeletes->contains($requestDelete)) {
+            $this->requestDeletes[] = $requestDelete;
+            $requestDelete->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRequestDelete(RequestDelete $requestDelete): self
+    {
+        if ($this->requestDeletes->removeElement($requestDelete)) {
+            // set the owning side to null (unless already changed)
+            if ($requestDelete->getClient() === $this) {
+                $requestDelete->setClient(null);
             }
         }
 
