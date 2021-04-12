@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre espace client{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('client') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('client') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <main class="form-container">
+        {{ form_start(form) }}
+        {{ form_end(form) }}
+    </main>
+{% endblock %}

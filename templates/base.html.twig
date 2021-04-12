@@ -43,14 +43,14 @@
             {% if app.user.roles is defined and 'ROLE_CLIENT' in app.user.roles %}
                 <a href="{{ path('app_client') }}" class="link">Mes comptes</a>
                 <a href="" class="link">Mes virements</a>
-                <a href="" class="link">Mes demandes</a>
+                <a href="{{ path('app_request_client') }}" class="link">Mes demandes</a>
                 <a href="" class="link">Mes bénéficiaires</a>
-                <a href="" class="link">Déconnexion</a>
+                <a href="{{ path('app_logout') }}" class="link">Déconnexion</a>
             {% endif %}
             {% if app.user.roles is defined and 'ROLE_BANKER' in app.user.roles %}
-                <a href="#" class="link">Demandes</a>
+                <a href="{{ path('app_banker_request') }}" class="link">Demandes</a>
                 <a href="{{ path('app_banker') }}" class="link">Clients</a>
-                <a href="#" class="link">Déconnexion</a>
+                <a href="{{ path('app_logout') }}" class="link">Déconnexion</a>
             {% endif %}
         </div>
         {% block callToAction %}

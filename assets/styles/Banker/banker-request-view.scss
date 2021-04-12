@@ -1,0 +1,11 @@
+.main-menu{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.request-view-img{
+  max-width: 300px;
+  height: auto;
+}

@@ -2,16 +2,31 @@ security:
     encoders:
         App\Entity\User:
             algorithm: auto
+        App\Entity\Banker:
+            algorithm: auto
+        App\Entity\Client:
+            algorithm: auto
+
+
 
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        banker:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Banker
                 property: email
-        # used to reload user from session & other features (e.g. switch_user)
+
+        client:
+            entity:
+                class: App\Entity\Client
+                property: email
+
+        all_users:
+            chain:
+                providers: ['client', 'banker' ]
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -19,7 +34,7 @@ security:
         main:
             anonymous: true
             lazy: true
-            provider: app_user_provider
+            provider: all_users
             guard:
                 authenticators:
                     - App\Security\MainAuthenticator

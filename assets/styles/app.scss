@@ -133,9 +133,10 @@ header{
         }
     }
 }
+//button
 .btn{
     padding: 15px;
-    border-radius: 14px;
+    border-radius: 7px;
     text-decoration: none;
     color: white;
     text-align: center;
@@ -149,6 +150,11 @@ header{
     &-danger{
         @extend .btn;
         background: $third-btn-color;
+    }
+    &-round{
+        @extend .btn;
+        border-radius: 50%;
+        padding:10px 15px;
     }
 }
 //Forms settings
@@ -198,8 +204,29 @@ header{
     label{
         font-size: 0.8em;
     }
-
 }
+
+.form-select {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    select {
+        height: 45px;
+        background: #1F2324;
+        border: none;
+        color: white;
+        border-radius: 7px;
+        margin-top: 5px;
+        padding: 10px;
+        outline: none;
+
+        &:focus {
+            border: 2px solid #3489E0;
+        }
+    }
+}
+
 .form-birthdate{
     input{
         width: 100%;
