@@ -55,9 +55,11 @@ class ClientController extends AbstractController
 
     #[Route('/client/request', name: 'app_request_client')]
     public function requestClient(): Response{
-        $requests = $this->getUser()->getAccountRequest();
+        $accountRequests = $this->getUser()->getAccountRequest();
+        $deleteRequests = $this->getUser()->getRequestDeletes();
         return $this->render('client/request-client.html.twig', [
-            'requests' => $requests,
+            'accountRequest' => $accountRequests,
+            'deleteRequest' => $deleteRequests,
         ]);
     }
     #[Route('/client/account/delete/{id}', name: 'app_account_delete_client')]
