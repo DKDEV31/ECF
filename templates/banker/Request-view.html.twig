@@ -20,9 +20,16 @@
             <p>Nom: {{ client.lastname }}</p>
             <p>Prénom: {{ client.firstname }}</p>
             <p>Type de demande: {{ request.type }}</p>
+            {% if request.type != 'Suppression de compte' %}
             <img src="{{ asset('CNI/' ~ request.idCard) }}" alt="CNI" class="request-view-img">
             <a href="/banker/account/create/{{ request.id }}" class="btn">Accepter la demande</a>
             <a href="/banker/request/deny" class="btn-danger">Refuser la demande</a>
+            {% else %}
+            <p>Numéro de compte: {{ request.account.accountNumber }}</p>
+            <img src="{{ asset('signature/' ~ request.CloseRequest) }}" alt="CNI" class="request-view-img">
+            <a href="/banker/account/delete/{{ request.id }}" class="btn">Accepter la demande</a>
+            <a href="/banker/request/deny" class="btn-danger">Refuser la demande</a>
+            {% endif %}
         </main>
     </div>
 {% endblock %}
