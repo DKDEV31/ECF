@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Account;
 use App\Entity\Client;
 use App\Entity\RequestAccount;
+use App\Entity\RequestDelete;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,27 +16,37 @@ class BankerController extends AbstractController
     #[Route('/banker', name: 'app_banker')]
     public function index(): Response
     {
-        $requests = $this->getUser()->getAccountRequest();
+        $accountRequests = $this->getUser()->getAccountRequest();
+        $deleteRequests = $this->getUser()->getRequestDeletes();
         $clients = [];
-        foreach ($requests as $request){
+        foreach ($accountRequests as $request){
+            $clients[] = $request->getClient();
+        }
+        foreach ($deleteRequests as $request){
             $clients[] = $request->getClient();
         }
         return $this->render('banker/index.html.twig', [
-            'clients' => $clients
+            'clients' => array_unique($clients),
         ]);
     }
 
     #[Route('/banker/request', name: 'app_banker_request')]
     public function requestBanker(): Response{
-        $requests = $this->getUser()->getAccountRequest();
+        $accountRequests = $this->getUser()->getAccountRequest();
+        $deleteRequests = $this->getUser()->getRequestDeletes();
         return $this->render('banker/Request.html.twig', [
-           'requests' => $requests,
+           'account' => $accountRequests,
+            'delete' => $deleteRequests,
+
         ]);
     }
 
-    #[Route('/banker/request/{id}', name: 'app_banker_request_view')]
-    public function requestBankerView(EntityManagerInterface $entityManager, $id): Response{
+    #[Route('/banker/request/createAccount/{id}', name: 'app_banker_request_create_view')]
+    public function requestBankerCreateView(EntityManagerInterface $entityManager, $id): Response{
         $request = $entityManager->getRepository(RequestAccount::class)->findOneBy(['id' => $id]);
+        if($request->getState() === 'Validé'){
+            return $this->redirectToRoute('app_banker_request');
+        }
         $clientId = $request->getClient()->getId();
         $client = $entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);
         return $this->render('banker/Request-view.html.twig', [
@@ -43,6 +54,20 @@ class BankerController extends AbstractController
            'client' => $client,
         ]);
     }
+    #[Route('/banker/request/deleteAccount/{id}', name: 'app_banker_request_delete_view')]
+    public function requestBankerDeleteView(EntityManagerInterface $entityManager, $id): Response{
+        $request = $entityManager->getRepository(RequestDelete::class)->findOneBy(['id' => $id]);
+        if($request->getState() === 'Validé'){
+            return $this->redirectToRoute('app_banker_request');
+        }
+        $clientId = $request->getClient()->getId();
+        $client = $entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);
+        return $this->render('banker/Request-view.html.twig', [
+            'request' => $request,
+            'client' => $client,
+        ]);
+    }
+
     #[Route('/banker/account/create/{id}', name: 'app_banker_account_create')]
     public function createAccount($id, EntityManagerInterface $entity): Response{
         $request = $entity->getRepository(RequestAccount::class)->findOneBy(['id' => $id]);
