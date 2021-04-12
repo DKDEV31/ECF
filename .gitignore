@@ -8,6 +8,8 @@
 /var/
 /vendor/
 /.idea
+/public/CNI
+/public/signature
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
