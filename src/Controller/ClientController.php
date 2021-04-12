@@ -6,7 +6,9 @@ use App\Classes\FindBankerTrait;
 use App\Entity\Account;
 use App\Entity\Client;
 use App\Entity\RequestAccount;
+use App\Entity\RequestDelete;
 use App\Form\RequestAccountType;
+use App\Form\RequestDeleteAccountType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -56,6 +58,31 @@ class ClientController extends AbstractController
         $requests = $this->getUser()->getAccountRequest();
         return $this->render('client/request-client.html.twig', [
             'requests' => $requests,
+        ]);
+    }
+    #[Route('/client/account/delete/{id}', name: 'app_account_delete_client')]
+    public function deleteAccount(Request $req, EntityManagerInterface $entity, $id): Response{
+        $request = new RequestDelete();
+        $account = $entity->getRepository(Account::class)->findOneBy(['id' => $id]);
+        $form = $this->createForm(RequestDeleteAccountType::class, $request);
+        $form->handleRequest($req);
+        if($form->isSubmitted() && $form->isValid()){
+            $file= $form->get('signature')->getData();
+            $filename = uniqid().'.'.$file->guessExtension();
+            $file->move('./signature', $filename);
+            $request->setCloseRequest($filename);
+            $request->setState('En Attente');
+            $request->setType('Suppression de compte');
+            $request->setClient($this->getUser());
+            $request->setBanker(FindBankerTrait::findBanker($entity));
+            $request->setAccount($account);
+            $entity->persist($request);
+            $entity->flush();
+            //notification a l'utilisateur pour lui confirmer le bon déroulé de l'action
+            return $this->redirectToRoute('app_client');
+        }
+        return $this->render('client/delete-account-form.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
