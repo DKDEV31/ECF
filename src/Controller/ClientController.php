@@ -38,7 +38,7 @@ class ClientController extends AbstractController
         if($form -> isSubmitted() && $form->isValid()){
             $file = $form->get('idCard')->getData();
             $filename = uniqid().'.'.$file->guessExtension();
-            $file->move('/CNI', $filename);
+            $file->move('./CNI', $filename);
             $requestAccount->setIdCard($filename);
             $requestAccount->setClient($this->getUser());
             $requestAccount->setBanker(FindBankerTrait::findBanker($entityManager));
@@ -46,7 +46,7 @@ class ClientController extends AbstractController
             $entityManager->persist($requestAccount);
             $entityManager->flush();
             //Envoie d'une notif à l'utilisateur
-            return $this->redirectToRoute('app_client');
+            return $this->redirectToRoute('app_request_client');
         }
         return $this->render('client/addAccount.html.twig',[
            'form' => $form->createView()
