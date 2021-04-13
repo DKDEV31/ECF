@@ -23,18 +23,6 @@
                     <a href="/client/benefitAdd/{{ accountId }}" class="btn-info" role="button">Ajouter un beneficiare</a>
                 {% else %}
                     <a href="/client/benefitAdd/{{ accountId }}" class="btn-info" role="button">Ajouter un beneficiare</a>
-                    {% for benefit in benefits %}
-                        <div class="account-container">
-                            <div class="account-content">
-                                <span>{{ benefit.Name }}</span>
-                                <span>{{ benefit.BankName }}</span>
-                                <span>{{ benefit.accountNumber }}</span>
-                            </div>
-                            <div class="accoun-actions">
-                                <a href="/client/account/delete/{{ benefit.id }}" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
-                            </div>
-                        </div>
-                    {% endfor %}
                     {% for benefit in defaultBenefits %}
                         <div class="account-container">
                             <div class="account-content">
@@ -43,7 +31,18 @@
                                 <span>{{ benefit.accountNumber }}</span>
                             </div>
                             <div class="accoun-actions">
-                                <a href="/client/account/delete/{{ benefit.id }}" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for benefit in benefits %}
+                        <div class="account-container">
+                            <div class="account-content">
+                                <span>{{ benefit.Name }}</span>
+                                <span>{{ benefit.BankName }}</span>
+                                <span>{{ benefit.accountNumber }}</span>
+                            </div>
+                            <div class="accoun-actions">
+                                <a href="/client/benefitDelete/{{ benefit.id }}" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
                             </div>
                         </div>
                     {% endfor %}
