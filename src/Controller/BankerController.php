@@ -55,6 +55,20 @@ class BankerController extends AbstractController
            'client' => $client,
         ]);
     }
+    #[Route('/banker/request/createBenefit/{id}', name: 'app_banker_request_createBenefit_view')]
+    public function requestBankerCreateBenefitView(EntityManagerInterface $entityManager, $id): Response{
+        $request = $entityManager->getRepository(RequestBenefit::class)->findOneBy(['id' => $id]);
+        if($request->getState() === 'Validé'){
+            return $this->redirectToRoute('app_banker_request');
+        }
+        $clientId = $request->getClient()->getId();
+        $client = $entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);
+        return $this->render('banker/Request-view.html.twig', [
+            'request' => $request,
+            'client' => $client,
+        ]);
+    }
+
     #[Route('/banker/request/deleteAccount/{id}', name: 'app_banker_request_delete_view')]
     public function requestBankerDeleteView(EntityManagerInterface $entityManager, $id): Response{
         $request = $entityManager->getRepository(RequestDelete::class)->findOneBy(['id' => $id]);
