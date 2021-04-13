@@ -88,5 +88,15 @@ class ClientController extends AbstractController
         ]);
     }
 
+    #[Route('/client/benefitView', name: 'app_benefit_client')]
+    public function benefitClient(): Response{
+        $account = $this->getUser()->getAccounts();
+        if(empty($account)){
+            return $this->redirectToRoute('app_client');
+        }
+        return $this->render('client/Benefit.html.twig', [
+           'accounts' => $account,
+        ]);
+    }
 
 }
