@@ -57,17 +57,6 @@ class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/client/request', name: 'app_request_client')]
-    public function requestClient(): Response{
-        $accountRequests = $this->getUser()->getAccountRequest();
-        $deleteRequests = $this->getUser()->getRequestDeletes();
-        $benefitRequest = $this->getUser()->getRequestBenefits();
-        return $this->render('client/request-client.html.twig', [
-            'accountRequest' => $accountRequests,
-            'deleteRequest' => $deleteRequests,
-            'benefitRequest' => $benefitRequest,
-        ]);
-    }
     #[Route('/client/account/delete/{id}', name: 'app_account_delete_client')]
     public function deleteAccount(Request $req, EntityManagerInterface $entity, $id): Response{
         $request = new RequestDelete();
@@ -91,6 +80,18 @@ class ClientController extends AbstractController
         }
         return $this->render('client/delete-account-form.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/client/request', name: 'app_request_client')]
+    public function requestClient(): Response{
+        $accountRequests = $this->getUser()->getAccountRequest();
+        $deleteRequests = $this->getUser()->getRequestDeletes();
+        $benefitRequest = $this->getUser()->getRequestBenefits();
+        return $this->render('client/request-client.html.twig', [
+            'accountRequest' => $accountRequests,
+            'deleteRequest' => $deleteRequests,
+            'benefitRequest' => $benefitRequest,
         ]);
     }
 
@@ -145,4 +146,12 @@ class ClientController extends AbstractController
         ]);
     }
 
+    #[Route('/client/benefitDelete/{benefitId}', name: 'app_benefit_delete')]
+    public function benefitDelete($benefitId, EntityManagerInterface $entity): Response{
+        $benefit = $entity->getRepository(Benefit::class)->findOneBy(['id'=>$benefitId]);
+        $entity->remove($benefit);
+        $entity->flush();
+        //Notification du bon déroulement a l'utilisateur
+        return $this->redirectToRoute('app_benefit_client');
+    }
 }
