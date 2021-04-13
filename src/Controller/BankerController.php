@@ -141,4 +141,28 @@ class BankerController extends AbstractController
         $entity->flush();
         return $this->redirectToRoute('app_banker_request');
     }
+    #[Route('/banker/benefit/deny/{requestId}', name: 'app_banker_request_benefit_deny')]
+    public function denyRequestBenefitBanker(EntityManagerInterface $entity, $requestId): Response{
+        $request = $entity->getRepository(RequestBenefit::class)->findOneBy(['id'=>$requestId]);
+        $request->setState('Refusée');
+        $entity->flush();
+        return $this->redirectToRoute('app_banker_request');
+    }
+
+    #[Route('/banker/requestAdd/deny/{requestId}', name: 'app_banker_request_accountAdd_deny')]
+    public function denyRequestAccountAddBanker(EntityManagerInterface $entity, $requestId): Response{
+        $request = $entity->getRepository(RequestAccount::class)->findOneBy(['id'=>$requestId]);
+        $request->setState('Refusée');
+        $entity->flush();
+        return $this->redirectToRoute('app_banker_request');
+    }
+
+    #[Route('/banker/requestDelete/deny/{requestId}', name: 'app_banker_request_accountDelete_deny')]
+    public function denyRequestAccountDeleteBanker(EntityManagerInterface $entity, $requestId): Response{
+        $request = $entity->getRepository(RequestDelete::class)->findOneBy(['id'=>$requestId]);
+        $request->setState('Refusée');
+        $entity->flush();
+        return $this->redirectToRoute('app_banker_request');
+    }
+
 }
