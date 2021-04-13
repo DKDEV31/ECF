@@ -20,11 +20,15 @@ class BankerController extends AbstractController
     {
         $accountRequests = $this->getUser()->getAccountRequest();
         $deleteRequests = $this->getUser()->getRequestDeletes();
+        $benefitRequests = $this->getUser()->getRequestBenefits();
         $clientIds = [];
         foreach ($accountRequests as $request){
             $clientIds[] = $request->getClient()->getId();
         }
         foreach ($deleteRequests as $request){
+            $clientIds[] = $request->getClient()->getId();
+        }
+        foreach ($benefitRequests as $request){
             $clientIds[] = $request->getClient()->getId();
         }
         $clients = $entity->getRepository(Client::class)->findBy(['id' => array_unique($clientIds)]);
