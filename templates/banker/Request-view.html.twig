@@ -17,10 +17,16 @@
 
         </aside>
         <main class="main-menu">
-            <p>Nom: {{ client.lastname }}</p>
-            <p>Prénom: {{ client.firstname }}</p>
+            <p>Nom du client: {{ client.lastname }}</p>
+            <p>Prénom du client: {{ client.firstname }}</p>
             <p>Type de demande: {{ request.type }}</p>
-            {% if request.type != 'Suppression de compte' %}
+            {% if request.type == 'Ajout de beneficiaire' %}
+            <p>Nom du beneficiare: {{ request.Name }}</p>
+            <p>Nom de la Banque: {{ request.BankName }}</p>
+            <p>Numéro de compte: {{ request.AccountNumber }}</p>
+            <a href="/banker/benefit/create/{{ request.id }}" class="btn">Accepter la demande</a>
+            <a href="/banker/request/deny" class="btn-danger">Refuser la demande</a>
+            {% elseif request.type != 'Suppression de compte' %}
             <img src="{{ asset('CNI/' ~ request.idCard) }}" alt="CNI" class="request-view-img">
             <a href="/banker/account/create/{{ request.id }}" class="btn">Accepter la demande</a>
             <a href="/banker/request/deny" class="btn-danger">Refuser la demande</a>

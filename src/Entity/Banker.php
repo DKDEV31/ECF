@@ -26,10 +26,16 @@ class Banker extends User
      */
     private $requestDeletes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=RequestBenefit::class, mappedBy="Banker")
+     */
+    private $requestBenefits;
+
     public function __construct()
     {
         $this->AccountRequest = new ArrayCollection();
         $this->requestDeletes = new ArrayCollection();
+        $this->requestBenefits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,6 +173,36 @@ class Banker extends User
             // set the owning side to null (unless already changed)
             if ($requestDelete->getBanker() === $this) {
                 $requestDelete->setBanker(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RequestBenefit[]
+     */
+    public function getRequestBenefits(): Collection
+    {
+        return $this->requestBenefits;
+    }
+
+    public function addRequestBenefit(RequestBenefit $requestBenefit): self
+    {
+        if (!$this->requestBenefits->contains($requestBenefit)) {
+            $this->requestBenefits[] = $requestBenefit;
+            $requestBenefit->setBanker($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRequestBenefit(RequestBenefit $requestBenefit): self
+    {
+        if ($this->requestBenefits->removeElement($requestBenefit)) {
+            // set the owning side to null (unless already changed)
+            if ($requestBenefit->getBanker() === $this) {
+                $requestBenefit->setBanker(null);
             }
         }
 
