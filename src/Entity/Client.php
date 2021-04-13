@@ -31,11 +31,17 @@ class Client extends User
      */
     private $requestDeletes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=RequestBenefit::class, mappedBy="Client")
+     */
+    private $requestBenefits;
+
     public function __construct()
     {
         $this->AccountRequest = new ArrayCollection();
         $this->Accounts = new ArrayCollection();
         $this->requestDeletes = new ArrayCollection();
+        $this->requestBenefits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -203,6 +209,36 @@ class Client extends User
             // set the owning side to null (unless already changed)
             if ($requestDelete->getClient() === $this) {
                 $requestDelete->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RequestBenefit[]
+     */
+    public function getRequestBenefits(): Collection
+    {
+        return $this->requestBenefits;
+    }
+
+    public function addRequestBenefit(RequestBenefit $requestBenefit): self
+    {
+        if (!$this->requestBenefits->contains($requestBenefit)) {
+            $this->requestBenefits[] = $requestBenefit;
+            $requestBenefit->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRequestBenefit(RequestBenefit $requestBenefit): self
+    {
+        if ($this->requestBenefits->removeElement($requestBenefit)) {
+            // set the owning side to null (unless already changed)
+            if ($requestBenefit->getClient() === $this) {
+                $requestBenefit->setClient(null);
             }
         }
 
