@@ -4,12 +4,16 @@ namespace App\Controller;
 
 use App\Classes\FindBankerTrait;
 use App\Entity\Account;
+use App\Entity\Benefit;
 use App\Entity\Client;
 use App\Entity\RequestAccount;
+use App\Entity\RequestBenefit;
 use App\Entity\RequestDelete;
+use App\Form\BenefitAddFormType;
 use App\Form\RequestAccountType;
 use App\Form\RequestDeleteAccountType;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,9 +61,11 @@ class ClientController extends AbstractController
     public function requestClient(): Response{
         $accountRequests = $this->getUser()->getAccountRequest();
         $deleteRequests = $this->getUser()->getRequestDeletes();
+        $benefitRequest = $this->getUser()->getRequestBenefits();
         return $this->render('client/request-client.html.twig', [
             'accountRequest' => $accountRequests,
             'deleteRequest' => $deleteRequests,
+            'benefitRequest' => $benefitRequest,
         ]);
     }
     #[Route('/client/account/delete/{id}', name: 'app_account_delete_client')]
@@ -113,6 +119,29 @@ class ClientController extends AbstractController
             'accountId' => $accountId,
             'benefits' => $benefits,
             'defaultBenefits' => $defaultBenefits,
+        ]);
+    }
+
+    #[Route('/client/benefitAdd/{accountId}', name: 'app_benefit_add_client')]
+    public function benefitAddClient($accountId, EntityManagerInterface $entity, Request $request): Response{
+        $requestBenefit = new RequestBenefit();
+        $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
+        $form = $this->createForm(BenefitAddFormType::class, $requestBenefit);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $requestBenefit
+                ->setAccount($account)
+                ->setState('En Attente')
+                ->setBanker(FindBankerTrait::findBanker($entity))
+                ->setClient($this->getUser())
+                ->setType('Ajout de beneficiaire');
+            $entity->persist($requestBenefit);
+            $entity->flush();
+            //notification du bon deroulement et creation d'une notif banquier
+            return $this->redirectToRoute('app_request_client');
+        }
+        return $this->render('client/BenefitForm.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
