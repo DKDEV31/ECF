@@ -17,10 +17,10 @@
 
         </aside>
         <main class="main-menu">
-            {% if requests is empty %}
+            {% if account is empty and delete is empty%}
                 <p>Vous n'avez pas encore de demande en cours</p>
             {% else %}
-                {% for request in requests %}
+                {% for request in account %}
                     <div class="request-container">
                         <div class="content-request-container">
                             <span>Demande N° {{ request.id }}</span>
@@ -29,7 +29,21 @@
                         <div class="request-actions">
                             <span>{{ request.state }}</span>
                             {% if request.state != 'Validé' %}
-                            <a href="/banker/request/{{ request.id }}" class="btn-info">Visualiser la demande</a>
+                            <a href="/banker/request/createAccount/{{ request.id }}" class="btn-info">Visualiser la demande</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for request in delete %}
+                    <div class="request-container">
+                        <div class="content-request-container">
+                            <span>Demande N° {{ request.id }}</span>
+                            <span>{{ request.type }}</span>
+                        </div>
+                        <div class="request-actions">
+                            <span>{{ request.state }}</span>
+                            {% if request.state != 'Validé' %}
+                                <a href="/banker/request/deleteAccount/{{ request.id }}" class="btn-info">Visualiser la demande</a>
                             {% endif %}
                         </div>
                     </div>

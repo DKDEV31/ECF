@@ -19,6 +19,7 @@
         <main class="main-menu">
             {% if accounts is empty %}
             <p>Veuillez créer un compte</p>
+            <a href="{{ path('app_account_add') }}" class="btn-info addAccount">Ajouter un compte</a>
             {% else %}
             {% for account in accounts %}
                 <div class="account-container">
@@ -27,7 +28,7 @@
                         <span>{{ account.amount }}€</span>
                     </div>
                     <div class="accoun-actions">
-                        <a href="#" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
+                        <a href="/client/account/delete/{{ account.id }}" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
                     </div>
                 </div>
             {% endfor %}

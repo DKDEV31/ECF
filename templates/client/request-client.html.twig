@@ -17,10 +17,10 @@
 
         </aside>
         <main class="main-menu">
-            {% if requests is empty %}
+            {% if accountRequest is empty and deleteRequest is empty%}
             <p>Aucune Demande en cours</p>
             {% else %}
-                {% for request in requests %}
+                {% for request in accountRequest %}
                 <div class="request-container">
                     <div class="content-request-container">
                         <span class="request-number">N° Demande: {{ request.id }}</span>
@@ -30,6 +30,17 @@
                         <span class="request-state">{{ request.state }}</span>
                     </div>
                 </div>
+                {% endfor %}
+                {% for request in deleteRequest %}
+                    <div class="request-container">
+                        <div class="content-request-container">
+                            <span class="request-number">N° Demande: {{ request.id }}</span>
+                            <span class="request-type">{{ request.type }}</span>
+                        </div>
+                        <div class="status-request-container">
+                            <span class="request-state">{{ request.state }}</span>
+                        </div>
+                    </div>
                 {% endfor %}
             {% endif %}
         </main>
