@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos beneficiares{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('client') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('client') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <div class="grid-container">
+        <aside class="side-menu">
+
+        </aside>
+        <main class="main-menu">
+            {% if benefits is defined or defaultBenefits is defined  %}
+                {% if benefits is empty and defaultBenefits is empty %}
+                    <p>Vous n'avez pas encore de bénéficiares pour ce compte</p>
+                    <a href="/client/benefitAdd/{{ accountId }}" class="btn-info" role="button">Ajouter un beneficiare</a>
+                {% else %}
+                    <a href="/client/benefitAdd/{{ accountId }}" class="btn-info" role="button">Ajouter un beneficiare</a>
+                    {% for benefit in benefits %}
+                        <div class="account-container">
+                            <div class="account-content">
+                                <span>{{ benefit.Name }}</span>
+                                <span>{{ benefit.BankName }}</span>
+                                <span>{{ benefit.accountNumber }}</span>
+                            </div>
+                            <div class="accoun-actions">
+                                <a href="/client/account/delete/{{ benefit.id }}" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for benefit in defaultBenefits %}
+                        <div class="account-container">
+                            <div class="account-content">
+                                <span>{{ benefit.type }}</span>
+                                <span>BanqIo</span>
+                                <span>{{ benefit.accountNumber }}</span>
+                            </div>
+                            <div class="accoun-actions">
+                                <a href="/client/account/delete/{{ benefit.id }}" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+            <p>Veuillez choisir un compte pour acceder à ses beneficiares</p>
+                {% for account in accounts %}
+                    <div class="account-container">
+                        <div class="account-content">
+                            <span>{{ account.type }}</span>
+                            <span>{{ account.amount }}€</span>
+                        </div>
+                        <div class="accoun-actions">
+                            <a href="/client/benefitView/{{ account.id }}" class="btn-info" role="button">Voir les beneficiares</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </main>
+    </div>
+{% endblock %}
