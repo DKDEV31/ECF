@@ -99,4 +99,21 @@ class ClientController extends AbstractController
         ]);
     }
 
+    #[Route('/client/benefitView/{accountId}', name: 'app_benefit_account_client')]
+    public function benefitAccountClient($accountId, EntityManagerInterface $entity): Response{
+        $defaultBenefits = [];
+        $accountId = (int)$accountId;
+        foreach ($this->getUser()->getAccounts() as $account){
+            if($account->getId() !== $accountId){
+                $defaultBenefits[] = $account;
+            }
+        }
+        $benefits = $entity->getRepository(Benefit::class)->findBy(['Account' => $accountId]);
+        return $this->render('client/Benefit.html.twig', [
+            'accountId' => $accountId,
+            'benefits' => $benefits,
+            'defaultBenefits' => $defaultBenefits,
+        ]);
+    }
+
 }
