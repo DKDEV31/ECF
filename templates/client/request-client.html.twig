@@ -42,6 +42,17 @@
                         </div>
                     </div>
                 {% endfor %}
+                {% for request in benefitRequest %}
+                    <div class="request-container">
+                        <div class="content-request-container">
+                            <span class="request-number">N° Demande: {{ request.id }}</span>
+                            <span class="request-type">{{ request.type }}</span>
+                        </div>
+                        <div class="status-request-container">
+                            <span class="request-state">{{ request.state }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
             {% endif %}
         </main>
     </div>
