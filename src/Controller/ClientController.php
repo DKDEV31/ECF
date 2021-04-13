@@ -27,7 +27,7 @@ class ClientController extends AbstractController
     #[Route('/client', name: 'app_client')]
     public function index(EntityManagerInterface $entity): Response
     {
-        $accounts = $entity->getRepository(Account::class)->findAll();
+        $accounts = $this->getUser()->getAccounts();
 
         return $this->render('client/index.html.twig', [
             'accounts' => $accounts,
