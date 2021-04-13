@@ -25,16 +25,16 @@
             <p>Nom de la Banque: {{ request.BankName }}</p>
             <p>Numéro de compte: {{ request.AccountNumber }}</p>
             <a href="/banker/benefit/create/{{ request.id }}" class="btn">Accepter la demande</a>
-            <a href="/banker/request/deny" class="btn-danger">Refuser la demande</a>
+            <a href="/banker/benefit/deny/{{ request.id }}" class="btn-danger">Refuser la demande</a>
             {% elseif request.type != 'Suppression de compte' %}
             <img src="{{ asset('CNI/' ~ request.idCard) }}" alt="CNI" class="request-view-img">
             <a href="/banker/account/create/{{ request.id }}" class="btn">Accepter la demande</a>
-            <a href="/banker/request/deny" class="btn-danger">Refuser la demande</a>
+            <a href="/banker/requestAdd/deny/{{ request.id }}" class="btn-danger">Refuser la demande</a>
             {% else %}
             <p>Numéro de compte: {{ request.account.accountNumber }}</p>
-            <img src="{{ asset('signature/' ~ request.CloseRequest) }}" alt="CNI" class="request-view-img">
+            <img src="{{ asset('signature/' ~ request.CloseRequest) }}" alt="signature" class="request-view-img">
             <a href="/banker/account/delete/{{ request.id }}" class="btn">Accepter la demande</a>
-            <a href="/banker/request/deny" class="btn-danger">Refuser la demande</a>
+            <a href="/banker/requestDelete/deny/{{ request.id }}" class="btn-danger">Refuser la demande</a>
             {% endif %}
         </main>
     </div>
