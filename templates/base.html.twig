@@ -42,7 +42,7 @@
             {% endif %}
             {% if app.user.roles is defined and 'ROLE_CLIENT' in app.user.roles %}
                 <a href="{{ path('app_client') }}" class="link">Mes comptes</a>
-                <a href="" class="link">Mes virements</a>
+                <a href="{{ path('app_client_transfer') }}" class="link">Mes virements</a>
                 <a href="{{ path('app_request_client') }}" class="link">Mes demandes</a>
                 <a href="{{ path('app_benefit_client') }}" class="link">Mes bénéficiaires</a>
                 <a href="{{ path('app_logout') }}" class="link">Déconnexion</a>
