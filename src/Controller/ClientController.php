@@ -2,32 +2,33 @@
 
 namespace App\Controller;
 
-use App\Classes\FindBankerTrait;
 use App\Entity\Account;
+use App\Entity\Banker;
 use App\Entity\Benefit;
 use App\Entity\Client;
 use App\Entity\RequestAccount;
 use App\Entity\RequestBenefit;
 use App\Entity\RequestDelete;
+use App\Entity\Transfer;
+use App\Entity\User;
 use App\Form\BenefitAddFormType;
 use App\Form\RequestAccountType;
 use App\Form\RequestDeleteAccountType;
+use App\Form\TranferFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ClientController extends AbstractController
 {
-    use FindBankerTrait;
 
     #[Route('/client', name: 'app_client')]
     public function index(EntityManagerInterface $entity): Response
     {
-        $accounts = $this->getUser()->getAccounts();
+        $user = $this->getUser();
+        $accounts = $entity->getRepository(Account::class)->findBy(['Client' => $user]);
 
         return $this->render('client/index.html.twig', [
             'accounts' => $accounts,
@@ -37,6 +38,8 @@ class ClientController extends AbstractController
     #[Route('/client/account/add', name: 'app_account_add')]
     public function AddAccount(Request $request, EntityManagerInterface $entityManager): Response{
         $requestAccount = new RequestAccount();
+        /** @var  User $user */
+        $user = $this->getUser();
         $form = $this->createForm(RequestAccountType::class, $requestAccount);
         $form->handleRequest($request);
         if($form -> isSubmitted() && $form->isValid()){
@@ -44,8 +47,8 @@ class ClientController extends AbstractController
             $filename = uniqid().'.'.$file->guessExtension();
             $file->move('./CNI', $filename);
             $requestAccount->setIdCard($filename);
-            $requestAccount->setClient($this->getUser());
-            $requestAccount->setBanker(FindBankerTrait::findBanker($entityManager));
+            $requestAccount->setClient($user);
+            $requestAccount->setBanker($this->findBanker($entityManager));
             $requestAccount->setState('En Attente');
             $entityManager->persist($requestAccount);
             $entityManager->flush();
@@ -61,6 +64,8 @@ class ClientController extends AbstractController
     public function deleteAccount(Request $req, EntityManagerInterface $entity, $id): Response{
         $request = new RequestDelete();
         $account = $entity->getRepository(Account::class)->findOneBy(['id' => $id]);
+        /** @var Client $user */
+        $user = $this->getUser();
         $form = $this->createForm(RequestDeleteAccountType::class, $request);
         $form->handleRequest($req);
         if($form->isSubmitted() && $form->isValid()){
@@ -70,8 +75,8 @@ class ClientController extends AbstractController
             $request->setCloseRequest($filename);
             $request->setState('En Attente');
             $request->setType('Suppression de compte');
-            $request->setClient($this->getUser());
-            $request->setBanker(FindBankerTrait::findBanker($entity));
+            $request->setClient($user);
+            $request->setBanker($this->findBanker($entity));
             $request->setAccount($account);
             $entity->persist($request);
             $entity->flush();
@@ -108,24 +113,19 @@ class ClientController extends AbstractController
 
     #[Route('/client/benefitView/{accountId}', name: 'app_benefit_account_client')]
     public function benefitAccountClient($accountId, EntityManagerInterface $entity): Response{
-        $defaultBenefits = [];
-        $accountId = (int)$accountId;
-        foreach ($this->getUser()->getAccounts() as $account){
-            if($account->getId() !== $accountId){
-                $defaultBenefits[] = $account;
-            }
-        }
+        $this->getInternalBenefits($accountId, $entity);
         $benefits = $entity->getRepository(Benefit::class)->findBy(['Account' => $accountId]);
         return $this->render('client/Benefit.html.twig', [
             'accountId' => $accountId,
             'benefits' => $benefits,
-            'defaultBenefits' => $defaultBenefits,
         ]);
     }
 
     #[Route('/client/benefitAdd/{accountId}', name: 'app_benefit_add_client')]
     public function benefitAddClient($accountId, EntityManagerInterface $entity, Request $request): Response{
         $requestBenefit = new RequestBenefit();
+        /** @var Client $user */
+        $user = $this->getUser();
         $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
         $form = $this->createForm(BenefitAddFormType::class, $requestBenefit);
         $form->handleRequest($request);
@@ -133,8 +133,8 @@ class ClientController extends AbstractController
             $requestBenefit
                 ->setAccount($account)
                 ->setState('En Attente')
-                ->setBanker(FindBankerTrait::findBanker($entity))
-                ->setClient($this->getUser())
+                ->setBanker($this->findBanker($entity))
+                ->setClient($user)
                 ->setType('Ajout de beneficiaire');
             $entity->persist($requestBenefit);
             $entity->flush();
@@ -225,6 +225,7 @@ class ClientController extends AbstractController
             }
         }
     }
+
     /**
      * Definie le banquier a qui confier la demande en fonction du nombre de demande qu'il a deja
      * @param EntityManagerInterface $entityManager
