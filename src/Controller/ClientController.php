@@ -154,4 +154,25 @@ class ClientController extends AbstractController
         //Notification du bon déroulement a l'utilisateur
         return $this->redirectToRoute('app_benefit_client');
     }
+
+    /**
+     * Definie le banquier a qui confier la demande en fonction du nombre de demande qu'il a deja
+     * @param EntityManagerInterface $entityManager
+     * @return Banker|object|null
+     */
+    private function findBanker(EntityManagerInterface $entityManager){
+        $bankers = $entityManager->getRepository(Banker::class)->findAll();
+        $bankerInfo = [];
+        foreach ($bankers as $banker){
+            $requestAmount = $banker->getAccountRequest()->count() +
+                $banker->getRequestDeletes()->count() +
+                $banker->getRequestBenefits()->count();
+            $bankerInfo[] = [$banker->getId() => $requestAmount];
+        }
+        $arrayIndex = array_rand(array_keys($bankerInfo,min($bankerInfo)));
+        $id = array_keys($bankerInfo,min($bankerInfo));
+        $requestedBankerId = count($id) > 1 ? $id[$arrayIndex] : $id;
+        $requestedBanker = $entityManager->getRepository(Banker::class)->findOneBy(['id'=>$requestedBankerId]);
+        return $requestedBanker;
+    }
 }
