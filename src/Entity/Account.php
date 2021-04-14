@@ -41,19 +41,25 @@ class Account
     private $Client;
 
     /**
-     * @ORM\OneToMany(targetEntity=Benefit::class, mappedBy="Account")
+     * @ORM\OneToMany(targetEntity=Benefit::class, mappedBy="Account", orphanRemoval=true)
      */
     private $benefits;
 
     /**
-     * @ORM\OneToMany(targetEntity=RequestBenefit::class, mappedBy="Account")
+     * @ORM\OneToMany(targetEntity=RequestBenefit::class, mappedBy="Account", orphanRemoval=true)
      */
     private $requestBenefits;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Transfer::class, mappedBy="Account", orphanRemoval=true)
+     */
+    private $transfers;
 
     public function __construct()
     {
         $this->benefits = new ArrayCollection();
         $this->requestBenefits = new ArrayCollection();
+        $this->transfers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,6 +170,36 @@ class Account
             // set the owning side to null (unless already changed)
             if ($requestBenefit->getAccount() === $this) {
                 $requestBenefit->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transfer[]
+     */
+    public function getTransfers(): Collection
+    {
+        return $this->transfers;
+    }
+
+    public function addTransfer(Transfer $transfer): self
+    {
+        if (!$this->transfers->contains($transfer)) {
+            $this->transfers[] = $transfer;
+            $transfer->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransfer(Transfer $transfer): self
+    {
+        if ($this->transfers->removeElement($transfer)) {
+            // set the owning side to null (unless already changed)
+            if ($transfer->getAccount() === $this) {
+                $transfer->setAccount(null);
             }
         }
 
