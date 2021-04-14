@@ -19,22 +19,24 @@ class AccountRepository extends ServiceEntityRepository
         parent::__construct($registry, Account::class);
     }
 
-    // /**
-    //  * @return Account[] Returns an array of Account objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Account[] Returns an array of Account objects
+      */
+
+    public function findWhereIdIsNot($id, $client)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('a.id != :val')
+            ->andWhere('a.Client = :client')
+            ->setParameter('val', $id)
+            ->setParameter('client', $client)
             ->orderBy('a.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Account
