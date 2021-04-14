@@ -193,6 +193,38 @@ class ClientController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * Definit si les comptes internes sont des beneficiaires si non alors il les créé
+     * @param $accountId
+     * @param EntityManagerInterface $entity
+     * @return void
+     */
+    private function getInternalBenefits($accountId, EntityManagerInterface $entity):void
+    {
+       $clientAccounts = $entity
+           ->getRepository(Account::class)
+           ->findWhereIdIsNot($accountId, $this->getUser());
+        for ($i = 0; $i < count($clientAccounts); $i++){
+            $accountNumber = $clientAccounts[$i]->getAccountNumber();
+            $internalBenefits = $entity
+                ->getRepository(Benefit::class)
+                ->findOneBy(['AccountNumber' => $accountNumber, 'Account' => $accountId]);
+            if(empty($internalBenefits)){
+                $accountToLink = $entity
+                    ->getRepository(Account::class)
+                    ->findOneBy(['id' => $accountId]);
+                $benefit = new Benefit();
+                $benefit
+                    ->setName($clientAccounts[$i]->getType())
+                    ->setBankName('Banqio')
+                    ->setAccountNumber($accountNumber)
+                    ->setAccount($accountToLink);
+                $entity->persist($benefit);
+                $entity->flush();
+            }
+        }
+    }
     /**
      * Definie le banquier a qui confier la demande en fonction du nombre de demande qu'il a deja
      * @param EntityManagerInterface $entityManager
