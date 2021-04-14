@@ -155,6 +155,44 @@ class ClientController extends AbstractController
         return $this->redirectToRoute('app_benefit_client');
     }
 
+    #[Route('/client/transfer', name: 'app_client_transfer')]
+    public function clientTransfer(): Response{
+        $accounts = $this->getUser()->getAccounts();
+        if(empty($accounts)){
+            $this->redirectToRoute('app_client');
+        }
+        return $this->render('client/Transfer.html.twig', [
+            'accounts' => $accounts,
+        ]);
+    }
+
+    #[Route('/client/transfer/add/{accountId}', name: 'app_client_transfer_add')]
+    public function clientDoTransfer(EntityManagerInterface $entity, Request $request, $accountId): Response{
+        $this->getInternalBenefits($accountId, $entity);
+        $transfer = new Transfer();
+        $form = $this->createForm(TranferFormType::class, $transfer, [
+            'accountId' => $accountId
+        ]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $accountToDebit = $entity->getRepository(Account::class)
+                ->findOneBy(['id' => $accountId]);
+            if($transfer->getType() === 'Virement Interne'){
+                $accountToCredit = $entity->getRepository(Account::class)
+                    ->findOneBy(['accountNumber' => $transfer->getBenefit()->getAccountNumber()]);
+                $accountToCredit->setAmount($accountToCredit->getAmount() + $transfer->getAmount());
+            }
+            $accountToDebit->setAmount($accountToDebit->getAmount() - $transfer->getAmount());
+            $transfer->setAccount($accountToDebit);
+            $entity->persist($transfer);
+            $entity->flush();
+            //Notification a l'utilisateur.
+            return $this->redirectToRoute('app_client');
+        }
+        return $this->render('client/TransferAddForm.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
     /**
      * Definie le banquier a qui confier la demande en fonction du nombre de demande qu'il a deja
      * @param EntityManagerInterface $entityManager
