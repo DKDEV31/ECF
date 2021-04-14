@@ -17,23 +17,12 @@
 
         </aside>
         <main class="main-menu">
-            {% if benefits is defined or defaultBenefits is defined  %}
-                {% if benefits is empty and defaultBenefits is empty %}
+            {% if benefits is defined %}
+                {% if benefits is empty%}
                     <p>Vous n'avez pas encore de bénéficiares pour ce compte</p>
                     <a href="/client/benefitAdd/{{ accountId }}" class="btn-info" role="button">Ajouter un beneficiare</a>
                 {% else %}
                     <a href="/client/benefitAdd/{{ accountId }}" class="btn-info" role="button">Ajouter un beneficiare</a>
-                    {% for benefit in defaultBenefits %}
-                        <div class="account-container">
-                            <div class="account-content">
-                                <span>{{ benefit.type }}</span>
-                                <span>BanqIo</span>
-                                <span>{{ benefit.accountNumber }}</span>
-                            </div>
-                            <div class="accoun-actions">
-                            </div>
-                        </div>
-                    {% endfor %}
                     {% for benefit in benefits %}
                         <div class="account-container">
                             <div class="account-content">
