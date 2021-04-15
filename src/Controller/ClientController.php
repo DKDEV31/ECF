@@ -52,7 +52,7 @@ class ClientController extends AbstractController
     #[Route('/client/account/add', name: 'app_account_add')]
     public function AddAccount(Request $request, EntityManagerInterface $entityManager): Response{
         $requestAccount = new RequestAccount();
-        /** @var  User $user */
+//        /** @var  Client $user */
         $user = $this->getUser();
         $form = $this->createForm(RequestAccountType::class, $requestAccount);
         $form->handleRequest($request);
@@ -70,9 +70,25 @@ class ClientController extends AbstractController
             return $this->redirectToRoute('app_request_client');
         }
         return $this->render('client/addAccount.html.twig',[
-           'form' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
+
+    #[Route('/client/account/{accountId}', name: 'app_client_account_view')]
+    public function viewAccount(EntityManagerInterface $entity, $accountId): Response
+    {
+        $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
+        $transfers = $entity->getRepository(Transfer::class)->findBy(['Account'=>$account]);
+        if (empty($account)){
+            return $this->redirectToRoute('app_client');
+        }
+        return $this->render('client/Account-operations-list.html.twig', [
+            'transfers' => $transfers,
+            'account' => $account,
+        ]);
+    }
+
+
 
     #[Route('/client/account/delete/{id}', name: 'app_account_delete_client')]
     public function deleteAccount(Request $req, EntityManagerInterface $entity, $id): Response{
