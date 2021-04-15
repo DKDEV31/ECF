@@ -249,9 +249,9 @@ class ClientController extends AbstractController
         $bankers = $entityManager->getRepository(Banker::class)->findAll();
         $bankerInfo = [];
         foreach ($bankers as $banker){
-            $requestAmount = $banker->getAccountRequest()->count() +
-                $banker->getRequestDeletes()->count() +
-                $banker->getRequestBenefits()->count();
+            $requestAmount = count($banker->getRequestDeletes()) +
+                count($banker->getRequestBenefits()) +
+                count($banker->getAccountRequest());
             $bankerInfo[] = [$banker->getId() => $requestAmount];
         }
         $arrayIndex = array_rand(array_keys($bankerInfo,min($bankerInfo)));
