@@ -133,7 +133,7 @@ class ClientController extends AbstractController
     #[Route('/client/benefitView', name: 'app_benefit_client')]
     public function benefitClient(): Response{
         $account = $this->getUser()->getAccounts();
-        if(empty($account)){
+        if(count($account) < 1){
             return $this->redirectToRoute('app_client');
         }
         return $this->render('client/Benefit.html.twig', [
@@ -188,8 +188,8 @@ class ClientController extends AbstractController
     #[Route('/client/transfer', name: 'app_client_transfer')]
     public function clientTransfer(): Response{
         $accounts = $this->getUser()->getAccounts();
-        if(empty($accounts)){
-            $this->redirectToRoute('app_client');
+        if(count($accounts) < 1 ){
+            return $this->redirectToRoute('app_client');
         }
         return $this->render('client/Transfer.html.twig', [
             'accounts' => $accounts,
