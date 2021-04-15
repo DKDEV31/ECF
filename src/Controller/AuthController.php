@@ -21,7 +21,7 @@ class AuthController extends AbstractController
                  return $this->redirectToRoute('app_client',['userId' => $userId]);
              } else if(in_array('ROLE_BANKER', $user->getRoles())){
                  $bankerId = $user->getId();
-                 return $this->redirectToRoute('app_banker', ['userId'=> $bankerId]);
+                 return $this->redirectToRoute('app_banker', ['bankerId'=> $bankerId]);
              }
          }
         // get the login error if there is one
