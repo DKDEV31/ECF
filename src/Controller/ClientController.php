@@ -107,7 +107,7 @@ class ClientController extends AbstractController
             $request->setType('Suppression de compte');
             $request->setClient($user);
             $request->setBanker($this->findBanker($entity));
-            $request->setAccount($account);
+            $request->setAccountNumber($account->getAccountNumber());
             $entity->persist($request);
             $entity->flush();
             //notification a l'utilisateur pour lui confirmer le bon déroulé de l'action
