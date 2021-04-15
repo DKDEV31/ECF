@@ -41,7 +41,7 @@ class Benefit
     private $BankName;
 
     /**
-     * @ORM\OneToMany(targetEntity=Transfer::class, mappedBy="Benefit")
+     * @ORM\OneToMany(targetEntity=Transfer::class, mappedBy="Benefit", orphanRemoval=true)
      */
     private $transfers;
 
@@ -132,4 +132,5 @@ class Benefit
 
         return $this;
     }
+
 }
