@@ -30,21 +30,6 @@ class ClientController extends AbstractController
         ]);
     }
 
-
-    #[Route('/client/account/{accountId}', name: 'app_client_account_view')]
-    public function viewAccount(EntityManagerInterface $entity, $accountId): Response
-    {
-        $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
-        $transfers = $entity->getRepository(Transfer::class)->findBy(['Account'=>$account]);
-        if (empty($account)){
-            return $this->redirectToRoute('app_client');
-        }
-        return $this->render('client/Account-operations-list.html.twig', [
-            'transfers' => $transfers,
-            'account' => $account,
-        ]);
-    }
-
     #[Route('/client/benefitView', name: 'app_benefit_client')]
     public function benefitClient(): Response{
         $account = $this->getUser()->getAccounts();
