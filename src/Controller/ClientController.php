@@ -10,7 +10,6 @@ use App\Entity\RequestAccount;
 use App\Entity\RequestBenefit;
 use App\Entity\RequestDelete;
 use App\Entity\Transfer;
-use App\Entity\User;
 use App\Form\BenefitAddFormType;
 use App\Form\RequestAccountType;
 use App\Form\RequestDeleteAccountType;
@@ -32,20 +31,6 @@ class ClientController extends AbstractController
 
         return $this->render('client/index.html.twig', [
             'accounts' => $accounts,
-        ]);
-    }
-
-    #[Route('/client/account/{accountId}', name: 'app_client_account_view')]
-    public function viewAccount(EntityManagerInterface $entity, $accountId): Response
-    {
-        $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
-        $transfers = $entity->getRepository(Transfer::class)->findBy(['Account'=>$account]);
-        if (empty($account)){
-            return $this->redirectToRoute('app_client');
-        }
-        return $this->render('client/Account-operations-list.html.twig', [
-            'transfers' => $transfers,
-            'account' => $account,
         ]);
     }
 
@@ -119,14 +104,18 @@ class ClientController extends AbstractController
     }
 
     #[Route('/client/request', name: 'app_request_client')]
-    public function requestClient(): Response{
-        $accountRequests = $this->getUser()->getAccountRequest();
-        $deleteRequests = $this->getUser()->getRequestDeletes();
-        $benefitRequest = $this->getUser()->getRequestBenefits();
+    public function requestClient(EntityManagerInterface $entity): Response{
+        $user = $this->getUser();
+        $accountRequests = $entity->getRepository(RequestAccount::class)
+            ->findBy(['Client' => $user]);
+        $deleteRequests = $entity->getRepository(RequestDelete::class)
+            ->findBy(['Client' => $user]);
+        $benefitRequests = $entity->getRepository(RequestBenefit::class)
+            ->findBy(['Client' => $user]);
         return $this->render('client/request-client.html.twig', [
             'accountRequest' => $accountRequests,
             'deleteRequest' => $deleteRequests,
-            'benefitRequest' => $benefitRequest,
+            'benefitRequest' => $benefitRequests,
         ]);
     }
 
