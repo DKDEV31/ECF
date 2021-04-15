@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\Client;
 use App\Form\RegistrationFormType;
 use App\Security\MainAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,8 +17,8 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, MainAuthenticator $authenticator): Response
     {
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $client = new Client();
+        $form = $this->createForm(RegistrationFormType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -28,24 +28,24 @@ class RegistrationController extends AbstractController
                 $form->get('zipcode')->getData(),
                 $form->get('city')->getData()
             );
-            $user->setAdress($adress);
+            $client->setAdress($adress);
             //set default role
-            $user->setRoles(['ROLE_BANKER']);
+            $client->setRoles(['ROLE_BANKER']);
             // encode the plain password
-            $user->setPassword(
+            $client->setPassword(
                 $passwordEncoder->encodePassword(
-                    $user,
+                    $client,
                     $form->get('password')->getData()
                 )
             );
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
+            $entityManager->persist($client);
             $entityManager->flush();
             // do anything else you need here, like send an email
 
             return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
+                $client,
                 $request,
                 $authenticator,
                 'main' // firewall name in security.yaml
