@@ -38,27 +38,12 @@ class BankerController extends AbstractController
             $clientIds[] = $request->getClient()->getId();
         }
         $clients = $entity->getRepository(Client::class)->findBy(['id' => array_unique($clientIds)]);
-        return $this->render('banker/index.html.twig', [
+        return $this->render('Acceuil-Banquier.html.twig', [
             'clients' => $clients,
         ]);
     }
 
-    #[Route('/banker/benefit/create/{id}', name: 'app_banker_benefit_create')]
-    public function createBenefit($id, EntityManagerInterface $entity): Response
-    {
-        $request = $entity->getRepository(RequestBenefit::class)->findOneBy(['id' => $id]);
-        $benefit = new Benefit();
-        $benefit
-            ->setAccount($request->getAccount())
-            ->setAccountNumber($request->getAccountNumber())
-            ->setBankName($request->getBankName())
-            ->setName($request->getName());
-        $request
-            ->setState('Validé');
-        $entity->persist($benefit);
-        $entity->flush();
-        return $this->redirectToRoute('app_banker_request');
-    }
+
 
 
 
