@@ -31,7 +31,7 @@
                                 <span>{{ benefit.accountNumber }}</span>
                             </div>
                             <div class="accoun-actions">
-                                <a href="/client/benefitDelete/{{ benefit.id }}" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
+                                <a href="{{ path('app_client_benefit_delete', {userId: app.user.id, benefitId: benefit.id}) }}" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
                             </div>
                         </div>
                     {% endfor %}
@@ -45,7 +45,7 @@
                             <span>{{ account.amount }}€</span>
                         </div>
                         <div class="accoun-actions">
-                            <a href="/client/benefitView/{{ account.id }}" class="btn-info" role="button">Voir les beneficiares</a>
+                            <a href="{{ path('app_client_benefit_account', {userId: app.user.id, accountId: account.id}) }}" class="btn-info" role="button">Voir les beneficiares</a>
                         </div>
                     </div>
                 {% endfor %}
