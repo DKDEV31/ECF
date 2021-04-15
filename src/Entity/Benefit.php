@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BenefitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,6 +39,16 @@ class Benefit
      * @ORM\Column(type="string", length=255)
      */
     private $BankName;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Transfer::class, mappedBy="Benefit")
+     */
+    private $transfers;
+
+    public function __construct()
+    {
+        $this->transfers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -87,6 +99,36 @@ class Benefit
     public function setBankName(string $BankName): self
     {
         $this->BankName = $BankName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transfer[]
+     */
+    public function getTransfers(): Collection
+    {
+        return $this->transfers;
+    }
+
+    public function addTransfer(Transfer $transfer): self
+    {
+        if (!$this->transfers->contains($transfer)) {
+            $this->transfers[] = $transfer;
+            $transfer->setBenefit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransfer(Transfer $transfer): self
+    {
+        if ($this->transfers->removeElement($transfer)) {
+            // set the owning side to null (unless already changed)
+            if ($transfer->getBenefit() === $this) {
+                $transfer->setBenefit(null);
+            }
+        }
 
         return $this;
     }
