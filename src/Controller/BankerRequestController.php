@@ -45,7 +45,7 @@ class BankerRequestController extends AbstractController
         }
         $clientId = $request->getClient()->getId();
         $client = $entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);
-        return $this->render('banker/Request-view.html.twig', [
+        return $this->render('banker/Request-Valid.html.twig', [
             'request' => $request,
             'client' => $client,
         ]);
@@ -64,7 +64,7 @@ class BankerRequestController extends AbstractController
         }
         $clientId = $request->getClient()->getId();
         $client = $entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);
-        return $this->render('banker/Request-view.html.twig', [
+        return $this->render('banker/Request-Valid.html.twig', [
             'request' => $request,
             'client' => $client,
         ]);
@@ -83,7 +83,7 @@ class BankerRequestController extends AbstractController
         }
         $clientId = $request->getClient()->getId();
         $client = $entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);
-        return $this->render('banker/Request-view.html.twig', [
+        return $this->render('banker/Request-Valid.html.twig', [
             'request' => $request,
             'client' => $client,
         ]);
@@ -99,7 +99,7 @@ class BankerRequestController extends AbstractController
         $request = $entity->getRepository(RequestBenefit::class)->findOneBy(['id'=>$requestId]);
         $request->setState('Refusée');
         $entity->flush();
-        return $this->redirectToRoute('app_banker_request');
+        return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
     }
 
     #[Route('/banker/{bankerId}/requestAdd/deny/{requestId}', name: 'app_banker_request_accountAdd_deny')]
@@ -112,7 +112,7 @@ class BankerRequestController extends AbstractController
         $request = $entity->getRepository(RequestAccount::class)->findOneBy(['id'=>$requestId]);
         $request->setState('Refusée');
         $entity->flush();
-        return $this->redirectToRoute('app_banker_request');
+        return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
     }
 
     #[Route('/banker/{bankerId}/requestDelete/deny/{requestId}', name: 'app_banker_request_accountDelete_deny')]
@@ -125,6 +125,6 @@ class BankerRequestController extends AbstractController
         $request = $entity->getRepository(RequestDelete::class)->findOneBy(['id'=>$requestId]);
         $request->setState('Refusée');
         $entity->flush();
-        return $this->redirectToRoute('app_banker_request');
+        return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
     }
 }
