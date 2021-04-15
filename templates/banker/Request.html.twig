@@ -29,7 +29,7 @@
                         <div class="request-actions">
                             <span>{{ request.state }}</span>
                             {% if request.state != 'Validé' %}
-                            <a href="/banker/request/createAccount/{{ request.id }}" class="btn-info">Visualiser la demande</a>
+                            <a href="{{ path('app_banker_request_create_account', {'bankerId': app.user.id, 'requestId': request.id}) }}" class="btn-info">Visualiser la demande</a>
                             {% endif %}
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                         <div class="request-actions">
                             <span>{{ request.state }}</span>
                             {% if request.state != 'Validé' %}
-                                <a href="/banker/request/deleteAccount/{{ request.id }}" class="btn-info">Visualiser la demande</a>
+                                <a href="{{ path('app_banker_request_delete_account', {bankerId: app.user.id, requestId: request.id}) }}" class="btn-info">Visualiser la demande</a>
                             {% endif %}
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         <div class="request-actions">
                             <span>{{ request.state }}</span>
                             {% if request.state != 'Validé' %}
-                                <a href="/banker/request/createBenefit/{{ request.id }}" class="btn-info">Visualiser la demande</a>
+                                <a href="{{ path('app_banker_request_create_benefit', {bankerId: app.user.id, requestId: request.id}) }}" class="btn-info">Visualiser la demande</a>
                             {% endif %}
                         </div>
                     </div>

@@ -48,8 +48,8 @@
                 <a href="{{ path('app_logout') }}" class="link">Déconnexion</a>
             {% endif %}
             {% if app.user.roles is defined and 'ROLE_BANKER' in app.user.roles %}
-                <a href="{{ path('app_banker_request') }}" class="link">Demandes</a>
-                <a href="{{ path('app_banker') }}" class="link">Clients</a>
+                <a href="{{ path('app_banker_request', {bankerId: app.user.id}) }}" class="link">Demandes</a>
+                <a href="{{ path('app_banker', {bankerId: app.user.id}) }}" class="link">Clients</a>
                 <a href="{{ path('app_logout') }}" class="link">Déconnexion</a>
             {% endif %}
         </div>
