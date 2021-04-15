@@ -19,5 +19,5 @@ class RequestAccountRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, RequestAccount::class);
     }
-    
+
 }

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte n°{{ account.accountNumber }}{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('client') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('client') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <div class="grid-container">
+        <aside class="side-menu">
+
+        </aside>
+        <main class="main-menu">
+            <p>Compte n°{{ account.accountNumber }}</p>
+            {% for transfer in transfers %}
+                <div class="account-container">
+                    <div class="account-content">
+                        <span>Virement depuis: {{ account.Type}}</span>
+                        <span>{{ transfer.amount }}€</span>
+                        <span>Vers: {{ transfer.Benefit.Name }}</span>
+                    </div>
+                    <div class="accoun-actions">
+                    </div>
+                </div>
+            {% endfor %}
+        </main>
+    </div>
+{% endblock %}
