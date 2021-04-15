@@ -43,40 +43,6 @@ class BankerController extends AbstractController
         ]);
     }
 
-
-
-    #[Route('/banker/account/create/{id}', name: 'app_banker_account_create')]
-    public function createAccount($id, EntityManagerInterface $entity): Response{
-        $request = $entity->getRepository(RequestAccount::class)->findOneBy(['id' => $id]);
-       $account = new Account();
-       $account
-           ->setClient($request->getClient())
-           ->setAccountNumber(uniqid())
-           ->setAmount(0)
-           ->setType($request->getType());
-       $entity->persist($account);
-       $request->setState('Validé');
-       $entity->flush();
-       return $this->redirectToRoute('app_banker_request');
-       //notification du bon déroulement de l'operation.
-       //envoie d'une notification a l'utilisateur pour l'informer de la création de son compte.
-    }
-    
-    #[Route('/banker/account/delete/{id}', name: 'app_banker_account_delete')]
-    public function deleteAccount($id, EntityManagerInterface $entity): Response
-    {
-        $request = $entity->getRepository(RequestDelete::class)->findOneBy(['id' => $id]);
-        $account = $entity->getRepository(Account::class)
-            ->findOneBy(['accountNumber' => $request->getAccountNumber()]);
-        $request
-            ->setState('Validé');
-        $entity->persist($request);
-        $entity->remove($account);
-        $entity->flush();
-        return $this->redirectToRoute('app_banker_request');
-        //Notif
-    }
-
     #[Route('/banker/benefit/create/{id}', name: 'app_banker_benefit_create')]
     public function createBenefit($id, EntityManagerInterface $entity): Response
     {
