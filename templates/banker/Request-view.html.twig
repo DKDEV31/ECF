@@ -31,7 +31,7 @@
             <a href="/banker/account/create/{{ request.id }}" class="btn">Accepter la demande</a>
             <a href="/banker/requestAdd/deny/{{ request.id }}" class="btn-danger">Refuser la demande</a>
             {% else %}
-            <p>Numéro de compte: {{ request.account.accountNumber }}</p>
+            <p>Numéro de compte: {{ request.accountNumber }}</p>
             <img src="{{ asset('signature/' ~ request.CloseRequest) }}" alt="signature" class="request-view-img">
             <a href="/banker/account/delete/{{ request.id }}" class="btn">Accepter la demande</a>
             <a href="/banker/requestDelete/deny/{{ request.id }}" class="btn-danger">Refuser la demande</a>

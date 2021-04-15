@@ -44,10 +44,11 @@ class RequestDelete
      */
     private $Client;
 
+
     /**
-     * @ORM\OneToOne(targetEntity=Account::class, cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255)
      */
-    private $Account;
+    private $accountNumber;
 
 
     public function getId(): ?int
@@ -115,14 +116,14 @@ class RequestDelete
         return $this;
     }
 
-    public function getAccount(): ?Account
+    public function getAccountNumber(): ?string
     {
-        return $this->Account;
+        return $this->accountNumber;
     }
 
-    public function setAccount(?Account $Account): self
+    public function setAccountNumber(string $accountNumber): self
     {
-        $this->Account = $Account;
+        $this->accountNumber = $accountNumber;
 
         return $this;
     }

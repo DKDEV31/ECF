@@ -10,7 +10,6 @@ use App\Entity\RequestAccount;
 use App\Entity\RequestBenefit;
 use App\Entity\RequestDelete;
 use App\Entity\Transfer;
-use App\Entity\User;
 use App\Form\BenefitAddFormType;
 use App\Form\RequestAccountType;
 use App\Form\RequestDeleteAccountType;
@@ -35,24 +34,10 @@ class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/client/account/{accountId}', name: 'app_client_account_view')]
-    public function viewAccount(EntityManagerInterface $entity, $accountId): Response
-    {
-        $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
-        $transfers = $entity->getRepository(Transfer::class)->findBy(['Account'=>$account]);
-        if (empty($account)){
-            return $this->redirectToRoute('app_client');
-        }
-        return $this->render('client/Account-operations-list.html.twig', [
-            'transfers' => $transfers,
-            'account' => $account,
-        ]);
-    }
-
     #[Route('/client/account/add', name: 'app_account_add')]
     public function AddAccount(Request $request, EntityManagerInterface $entityManager): Response{
         $requestAccount = new RequestAccount();
-        /** @var  User $user */
+//        /** @var  Client $user */
         $user = $this->getUser();
         $form = $this->createForm(RequestAccountType::class, $requestAccount);
         $form->handleRequest($request);
@@ -70,9 +55,25 @@ class ClientController extends AbstractController
             return $this->redirectToRoute('app_request_client');
         }
         return $this->render('client/addAccount.html.twig',[
-           'form' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
+
+    #[Route('/client/account/{accountId}', name: 'app_client_account_view')]
+    public function viewAccount(EntityManagerInterface $entity, $accountId): Response
+    {
+        $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
+        $transfers = $entity->getRepository(Transfer::class)->findBy(['Account'=>$account]);
+        if (empty($account)){
+            return $this->redirectToRoute('app_client');
+        }
+        return $this->render('client/Account-operations-list.html.twig', [
+            'transfers' => $transfers,
+            'account' => $account,
+        ]);
+    }
+
+
 
     #[Route('/client/account/delete/{id}', name: 'app_account_delete_client')]
     public function deleteAccount(Request $req, EntityManagerInterface $entity, $id): Response{
@@ -91,7 +92,7 @@ class ClientController extends AbstractController
             $request->setType('Suppression de compte');
             $request->setClient($user);
             $request->setBanker($this->findBanker($entity));
-            $request->setAccount($account);
+            $request->setAccountNumber($account->getAccountNumber());
             $entity->persist($request);
             $entity->flush();
             //notification a l'utilisateur pour lui confirmer le bon déroulé de l'action
@@ -103,21 +104,25 @@ class ClientController extends AbstractController
     }
 
     #[Route('/client/request', name: 'app_request_client')]
-    public function requestClient(): Response{
-        $accountRequests = $this->getUser()->getAccountRequest();
-        $deleteRequests = $this->getUser()->getRequestDeletes();
-        $benefitRequest = $this->getUser()->getRequestBenefits();
+    public function requestClient(EntityManagerInterface $entity): Response{
+        $user = $this->getUser();
+        $accountRequests = $entity->getRepository(RequestAccount::class)
+            ->findBy(['Client' => $user]);
+        $deleteRequests = $entity->getRepository(RequestDelete::class)
+            ->findBy(['Client' => $user]);
+        $benefitRequests = $entity->getRepository(RequestBenefit::class)
+            ->findBy(['Client' => $user]);
         return $this->render('client/request-client.html.twig', [
             'accountRequest' => $accountRequests,
             'deleteRequest' => $deleteRequests,
-            'benefitRequest' => $benefitRequest,
+            'benefitRequest' => $benefitRequests,
         ]);
     }
 
     #[Route('/client/benefitView', name: 'app_benefit_client')]
     public function benefitClient(): Response{
         $account = $this->getUser()->getAccounts();
-        if(empty($account)){
+        if(count($account) < 1){
             return $this->redirectToRoute('app_client');
         }
         return $this->render('client/Benefit.html.twig', [
@@ -172,8 +177,8 @@ class ClientController extends AbstractController
     #[Route('/client/transfer', name: 'app_client_transfer')]
     public function clientTransfer(): Response{
         $accounts = $this->getUser()->getAccounts();
-        if(empty($accounts)){
-            $this->redirectToRoute('app_client');
+        if(count($accounts) < 1 ){
+            return $this->redirectToRoute('app_client');
         }
         return $this->render('client/Transfer.html.twig', [
             'accounts' => $accounts,
@@ -249,9 +254,9 @@ class ClientController extends AbstractController
         $bankers = $entityManager->getRepository(Banker::class)->findAll();
         $bankerInfo = [];
         foreach ($bankers as $banker){
-            $requestAmount = $banker->getAccountRequest()->count() +
-                $banker->getRequestDeletes()->count() +
-                $banker->getRequestBenefits()->count();
+            $requestAmount = count($banker->getRequestDeletes()) +
+                count($banker->getRequestBenefits()) +
+                count($banker->getAccountRequest());
             $bankerInfo[] = [$banker->getId() => $requestAmount];
         }
         $arrayIndex = array_rand(array_keys($bankerInfo,min($bankerInfo)));
