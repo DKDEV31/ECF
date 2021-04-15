@@ -15,13 +15,13 @@ class AuthController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
          if ($this->getUser()) {
-             $role = $this->getUser()->getRoles();
-             if(in_array('ROLE_CLIENT', $role)){
-                 return $this->redirectToRoute('app_client');
-             } else if(in_array('ROLE_BANKER', $role)){
-                 return $this->redirectToRoute('app_banker');
-             } else {
-                 return $this->redirectToRoute('app_home');
+             $user = $this->getUser();
+             if(in_array('ROLE_CLIENT', $user->getRoles())){
+                 $userId = $user->getId();
+                 return $this->redirectToRoute('app_client',['userId' => $userId]);
+             } else if(in_array('ROLE_BANKER', $user->getRoles())){
+                 $bankerId = $user->getId();
+                 return $this->redirectToRoute('app_banker', ['userId'=> $bankerId]);
              }
          }
         // get the login error if there is one

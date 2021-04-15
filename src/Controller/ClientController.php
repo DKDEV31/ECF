@@ -15,17 +15,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class ClientController extends AbstractController
 {
 
-    #[Route('/client', name: 'app_client')]
-    public function index(EntityManagerInterface $entity): Response
+    #[Route('/client/{userId}', name: 'app_client')]
+    public function index(EntityManagerInterface $entity, $userId): Response
     {
         $user = $this->getUser();
+        if($user->getId() != $userId){
+            $this->redirectToRoute('app_home');
+            dump('ok');
+        }
         $accounts = $entity->getRepository(Account::class)->findBy(['Client' => $user]);
 
         return $this->render('client/index.html.twig', [
             'accounts' => $accounts,
         ]);
     }
-
 
 
     #[Route('/client/account/{accountId}', name: 'app_client_account_view')]
