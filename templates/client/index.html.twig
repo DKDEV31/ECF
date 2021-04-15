@@ -28,7 +28,7 @@
                         <span>{{ account.amount }}€</span>
                     </div>
                     <div class="accoun-actions">
-                        <a href="/client/account/{{ account.id }}" class="btn-round btn-info">voir</a>
+                        <a href="{{ path('app_client_account_view', {userId: app.user.id, accountId: account.id}) }}" class="btn-round btn-info">voir</a>
                         <a href="/client/account/delete/{{ account.id }}" class="btn-danger btn-round" role="button"><img src="/svg/closeIcon.svg" alt="close icon"></a>
                     </div>
                 </div>
