@@ -25,7 +25,7 @@
                         <span>{{ account.amount }}€</span>
                     </div>
                     <div class="accoun-actions">
-                        <a href="{{ path('app_client_transfer_add', {accountId: account.id}) }}" class="btn btn-round">OK</a>
+                        <a href="{{ path('app_client_transfer_add', {userId: app.user.id, accountId: account.id}) }}" class="btn btn-round">OK</a>
                     </div>
                 </div>
             {% endfor %}
