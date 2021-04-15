@@ -30,7 +30,7 @@ class BankerAccountController extends AbstractController
         $entity->persist($account);
         $request->setState('Validé');
         $entity->flush();
-        return $this->redirectToRoute('app_banker_request');
+        return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
         //notification du bon déroulement de l'operation.
         //envoie d'une notification a l'utilisateur pour l'informer de la création de son compte.
     }
@@ -51,7 +51,7 @@ class BankerAccountController extends AbstractController
         $entity->persist($request);
         $entity->remove($account);
         $entity->flush();
-        return $this->redirectToRoute('app_banker_request');
+        return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
         //Notif
     }
 }
