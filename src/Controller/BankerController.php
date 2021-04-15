@@ -113,16 +113,15 @@ class BankerController extends AbstractController
     public function deleteAccount($id, EntityManagerInterface $entity): Response
     {
         $request = $entity->getRepository(RequestDelete::class)->findOneBy(['id' => $id]);
-        $accountId = $request->getAccount()->getId();
-        $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
+        $account = $entity->getRepository(Account::class)
+            ->findOneBy(['accountNumber' => $request->getAccountNumber()]);
         $request
-            ->setState('Validé')
-            ->setAccount(null);
+            ->setState('Validé');
         $entity->persist($request);
-        $entity->flush();
         $entity->remove($account);
         $entity->flush();
         return $this->redirectToRoute('app_banker_request');
+        //Notif
     }
 
     #[Route('/banker/benefit/create/{id}', name: 'app_banker_benefit_create')]
