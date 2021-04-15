@@ -32,7 +32,7 @@ class ClientRequestController extends AbstractController
             ->findBy(['Client' => $user]);
         $benefitRequests = $entity->getRepository(RequestBenefit::class)
             ->findBy(['Client' => $user]);
-        return $this->render('client/request-client.html.twig', [
+        return $this->render('client/Request-Listing.html.twig', [
             'accountRequest' => $accountRequests,
             'deleteRequest' => $deleteRequests,
             'benefitRequest' => $benefitRequests,
@@ -60,9 +60,9 @@ class ClientRequestController extends AbstractController
             $entityManager->persist($requestAccount);
             $entityManager->flush();
             //Envoie d'une notif à l'utilisateur
-            return $this->redirectToRoute('app_request_client');
+            return $this->redirectToRoute('app_client_request', ['userId'=>$user->getId()]);
         }
-        return $this->render('client/addAccount.html.twig',[
+        return $this->render('client/Form-Account.html.twig',[
             'form' => $form->createView()
         ]);
     }
@@ -92,9 +92,9 @@ class ClientRequestController extends AbstractController
             $entity->persist($request);
             $entity->flush();
             //notification a l'utilisateur pour lui confirmer le bon déroulé de l'action
-            return $this->redirectToRoute('app_client');
+            return $this->redirectToRoute('app_client', ['userId'=>$user->getId()]);
         }
-        return $this->render('client/delete-account-form.html.twig', [
+        return $this->render('client/Form-Delete-Account.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -120,9 +120,9 @@ class ClientRequestController extends AbstractController
             $entity->persist($requestBenefit);
             $entity->flush();
             //notification du bon deroulement et creation d'une notif banquier
-            return $this->redirectToRoute('app_request_client');
+            return $this->redirectToRoute('app_client_request', ['userId'=>$user->getId()]);
         }
-        return $this->render('client/BenefitForm.html.twig', [
+        return $this->render('client/Form-Benefit.html.twig', [
             'form' => $form->createView(),
         ]);
     }

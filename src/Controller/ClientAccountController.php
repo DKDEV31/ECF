@@ -25,7 +25,7 @@ class ClientAccountController extends AbstractController
         if (empty($account)){
             return $this->redirectToRoute('app_client');
         }
-        return $this->render('client/Account-operations-list.html.twig', [
+        return $this->render('client/Client-Operations-Compte.twig', [
             'transfers' => $transfers,
             'account' => $account,
         ]);
