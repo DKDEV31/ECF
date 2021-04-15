@@ -20,9 +20,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ClientRequestController extends AbstractController
 {
 
-    #[Route('/client/request', name: 'app_client_request')]
-    public function requestClient(EntityManagerInterface $entity): Response{
+    #[Route('/client/{userId}/request', name: 'app_client_request')]
+    public function requestClient(EntityManagerInterface $entity, $userId): Response{
         $user = $this->getUser();
+        if($user->getId() !== $userId){
+            return $this->redirectToRoute('app_client',['userId' => $user->getId()]);
+        }
         $accountRequests = $entity->getRepository(RequestAccount::class)
             ->findBy(['Client' => $user]);
         $deleteRequests = $entity->getRepository(RequestDelete::class)
@@ -36,11 +39,14 @@ class ClientRequestController extends AbstractController
         ]);
     }
 
-    #[Route('/client/request/account/add', name: 'app_client_request_account_add')]
-    public function AddAccount(Request $request, EntityManagerInterface $entityManager): Response{
+    #[Route('/client/{userId}/request/account/add', name: 'app_client_request_account_add')]
+    public function AddAccount(Request $request, EntityManagerInterface $entityManager, $userId): Response{
         $requestAccount = new RequestAccount();
         /** @var  Client $user */
         $user = $this->getUser();
+        if($user->getId() !== $userId){
+            return $this->redirectToRoute('app_client', ['userId' => $user->getId()]);
+        }
         $form = $this->createForm(RequestAccountType::class, $requestAccount);
         $form->handleRequest($request);
         if($form -> isSubmitted() && $form->isValid()){
@@ -61,12 +67,16 @@ class ClientRequestController extends AbstractController
         ]);
     }
 
-    #[Route('/client/request/account/delete/{id}', name: 'app_client_request_account_delete')]
-    public function deleteAccount(Request $req, EntityManagerInterface $entity, $id): Response{
-        $request = new RequestDelete();
-        $account = $entity->getRepository(Account::class)->findOneBy(['id' => $id]);
+    #[Route('/client/{userId}/request/account/delete/{accountId}', name: 'app_client_request_account_delete')]
+    public function deleteAccount(Request $req, EntityManagerInterface $entity, $accountId,$userId): Response{
         /** @var Client $user */
         $user = $this->getUser();
+        $account = $entity->getRepository(Account::class)
+            ->findOneBy(['id' => $accountId]);
+        if($user->getId() !== $userId){
+            return $this->redirectToRoute('app_client', ['userId'=> $user->getId()]);
+        }
+        $request = new RequestDelete();
         $form = $this->createForm(RequestDeleteAccountType::class, $request);
         $form->handleRequest($req);
         if($form->isSubmitted() && $form->isValid()){
@@ -89,11 +99,14 @@ class ClientRequestController extends AbstractController
         ]);
     }
 
-    #[Route('/client/request/benefit/add/{accountId}', name: 'app_client_request_benefit_add')]
-    public function benefitAddClient($accountId, EntityManagerInterface $entity, Request $request): Response{
+    #[Route('/client/{userId}/request/benefit/add/{accountId}', name: 'app_client_request_benefit_add')]
+    public function benefitAddClient($accountId, EntityManagerInterface $entity, Request $request, $userId): Response{
         $requestBenefit = new RequestBenefit();
         /** @var Client $user */
         $user = $this->getUser();
+        if($user->getId() !== $userId){
+            return $this->redirectToRoute('app_client', ['userId'=>$user->getId()]);
+        }
         $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
         $form = $this->createForm(BenefitAddFormType::class, $requestBenefit);
         $form->handleRequest($request);
