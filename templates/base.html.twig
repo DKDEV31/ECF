@@ -12,14 +12,14 @@
         {% endblock %}
     </head>
     <body>
-    {% if app.flashes %}
-        {% block flashes %}
-        <div class="alert-danger" id="alert">
-            <span>{{ app.flashes }}</span>
-            <span class="alert-bar"></span>
-        </div>
-        {% endblock %}
-    {% endif %}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert-{{ label }}" id="alert">
+                    <span>{{ message }}</span>
+                    <span class="alert-bar"></span>
+                </div>
+            {% endfor %}
+        {% endfor %}
         <header>
             <div class="logo">
                 <img src="{{ asset('/svg/surface1.svg') }}" alt="logo bank">
