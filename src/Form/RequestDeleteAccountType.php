@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class RequestDeleteAccountType extends AbstractType
 {
@@ -21,6 +22,16 @@ class RequestDeleteAccountType extends AbstractType
                 'label' => 'Demande de cloture manuscrite',
                 'row_attr' => ['class'=>'form-file'],
                 'mapped' => false,
+                'constraints' =>[
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'image/jpeg'
+                        ]
+                    ])
+                ],
+                'help' => 'Maximum 2 Mo, seulement .jpeg et .jpg'
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Demande de cloture',
