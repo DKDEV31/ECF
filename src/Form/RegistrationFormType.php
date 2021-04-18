@@ -29,7 +29,8 @@ class RegistrationFormType extends AbstractType
                     new Type([
                         'type' => 'string'
                     ])
-                ]
+                ],
+
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
@@ -65,7 +66,9 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 8,
                     ])
-                ]
+                ],
+                'help' => 'Doit contenir au moins une majuscule, une minuscule, un chiffre et un symbole.
+                Longueur minimum de 8 caracteres'
             ])
             ->add('adress', TextType::class,[
                 'label' => 'Adresse',
@@ -100,7 +103,7 @@ class RegistrationFormType extends AbstractType
                 'row_attr' => ['class' => 'form-phone'],
                 'constraints' => [
                     new Length([
-                        'max'=>10
+                        'min'=>10
                     ])
                 ]
             ])
