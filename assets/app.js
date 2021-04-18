@@ -16,9 +16,9 @@ window.addEventListener('load', ()=> {
     if(alert instanceof Element) {
         console.log('ok')
         alert.style.top = '0'
-        // setTimeout(() => {
-        //     alert.style.top = '-1500px'
-        // }, 3000)
+        setTimeout(() => {
+            alert.style.top = '-1500px'
+        }, 3000)
     }
 })
 
