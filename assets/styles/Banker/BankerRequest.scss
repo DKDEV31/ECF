@@ -1,0 +1,20 @@
+.box{
+  justify-content: space-between;
+  .box-content{
+    align-items: start;
+  }
+  cursor: pointer;
+  &:hover{
+    background: rgba(255,255,255,0.15);
+
+  }
+}
+
+@media (min-width: 1024px) {
+  .box{
+    &:hover{
+      background: #1F2324;
+
+    }
+  }
+}
