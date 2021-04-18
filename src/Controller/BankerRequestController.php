@@ -41,7 +41,7 @@ class BankerRequestController extends AbstractController
         }
         $request = $entityManager->getRepository(RequestAccount::class)->findOneBy(['id' => $requestId]);
         if($request->getState() === 'Validé'){
-            return $this->redirectToRoute('app_banker_request');
+            return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
         }
         $clientId = $request->getClient()->getId();
         $client = $entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);
@@ -60,7 +60,7 @@ class BankerRequestController extends AbstractController
         }
         $request = $entityManager->getRepository(RequestBenefit::class)->findOneBy(['id' => $requestId]);
         if($request->getState() === 'Validé'){
-            return $this->redirectToRoute('app_banker_request');
+            return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
         }
         $clientId = $request->getClient()->getId();
         $client = $entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);
@@ -79,7 +79,7 @@ class BankerRequestController extends AbstractController
         }
         $request = $entityManager->getRepository(RequestDelete::class)->findOneBy(['id' => $requestId]);
         if($request->getState() === 'Validé'){
-            return $this->redirectToRoute('app_banker_request');
+            return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
         }
         $clientId = $request->getClient()->getId();
         $client = $entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);

@@ -38,7 +38,7 @@ class BankerController extends AbstractController
             $clientIds[] = $request->getClient()->getId();
         }
         $clients = $entity->getRepository(Client::class)->findBy(['id' => array_unique($clientIds)]);
-        return $this->render('Acceuil-Banquier.html.twig', [
+        return $this->render('banker/Acceuil-Banquier.html.twig', [
             'clients' => $clients,
         ]);
     }
