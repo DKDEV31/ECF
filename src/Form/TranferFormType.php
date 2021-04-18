@@ -4,13 +4,16 @@ namespace App\Form;
 
 use App\Entity\Benefit;
 use App\Entity\Transfer;
+use Doctrine\DBAL\Types\FloatType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,8 +24,8 @@ class TranferFormType extends AbstractType
     {
         $accountId = $options['accountId'];
         $builder
-            ->add('amount', MoneyType::class, [
-                'row_attr' => ['class' => 'form-row'],
+            ->add('amount', NumberType::class, [
+                'row_attr' => ['class' => 'form-currency'],
                 'label' => 'Montant'
             ])
             ->add('benefit', EntityType::class, [
