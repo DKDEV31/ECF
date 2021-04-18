@@ -6,27 +6,22 @@
   display: flex;
   gap: 15px;
 }
-@media screen and (max-width: 400px){
+@media screen and (max-width: 425px){
   .name-form-container{
     flex-direction: column;
-    .form-row{
-      input{
-        width: 100%;
-      }
-    }
   }
   .adress-form-container{
     flex-direction: column;
-    .form-zipcode,
-    .form-city
-    {
-      input{
-        width: 100%;
-      }
-    }
   }
   .form-container{
-    width: 100%;
-    border-radius: 0;
+    //width: 100%;
+    border-radius: 0px;
+  }
+}
+@media(min-width: 768px){
+  .container-grid{
+    grid-template-columns: 0.8fr;
+    justify-content: center;
+    align-items: center;
   }
 }

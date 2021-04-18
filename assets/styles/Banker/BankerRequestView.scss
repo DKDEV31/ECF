@@ -1,4 +1,4 @@
-.main-menu{
+.main-box{
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -6,6 +6,15 @@
   align-items: center;
 }
 .request-view-img{
-  max-width: 300px;
-  height: auto;
+  width: auto;
+  max-height: 300px;
+}
+.request-button{
+  display: flex;
+  padding: 0 40px;
+  gap: 45px;
+  .btn, .btn-danger{
+    padding: 5px 10px;
+    font-size: 1.5em;
+  }
 }

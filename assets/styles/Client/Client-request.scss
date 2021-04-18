@@ -1,24 +1,8 @@
-.request-container{
-  display: grid;
-  grid-auto-flow: column;
-  width: 100%;
+.box-content{
+  align-items: start;
+}
+.box{
   justify-content: space-between;
-  align-items: center;
-  background: #666666;
-  border-radius: 7px;
-  padding: 10px;
-  min-height: 100px;
 }
-.content-request-container{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  .request-number{
-    color: #19E8E3;
-    font-size: 0.8em;
-  }
-  .request-type{
-    font-size: 1em;
-  }
-}
+
 

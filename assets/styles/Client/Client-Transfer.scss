@@ -1,0 +1,14 @@
+.box{
+  &:hover{
+    background: rgba(255,255,255,0.15);
+    transition: all .5s ease-in-out;
+    cursor: pointer;
+  }
+}
+@media (min-width: 1024px) {
+  .box{
+    &:hover{
+      background: #1F2324;
+    }
+  }
+}
