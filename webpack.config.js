@@ -20,14 +20,20 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.scss) if your JavaScript imports CSS.
      */
-    .addEntry('banker', './assets/banker.js')
-    .addEntry('client', './assets/client.js')
+    .addEntry('ClientOpsList', './assets/ClientOpsList.js')
+    .addEntry('ClientAccount', './assets/ClientAccount.js')
+    .addEntry('ClientBenefit', './assets/ClientBenefit.js')
+    .addEntry('ClientRequest', './assets/ClientRequest.js')
+    .addEntry('ClientTransfer', './assets/ClientTransfer.js')
+    .addEntry('ClientFormAccount', './assets/ClientFormAccount.js')
+    .addEntry('BankerRequestView', './assets/BankerRequestView.js')
+    .addEntry('BankerRequest', './assets/BankerRequest.js')
+    .addEntry('BankerClients', './assets/BankerClients.js')
     .addEntry('register', './assets/register.js')
     .addEntry('login', './assets/login.js')
     .addEntry('app', './assets/app.js')
     .addEntry('home', './assets/home.js')
     .addEntry('bankProduct', './assets/bankProduct.js')
-    .addEntry('Contact', './assets/Contact.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     //.enableStimulusBridge('./assets/controllers.json')
