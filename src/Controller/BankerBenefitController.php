@@ -31,6 +31,7 @@ class BankerBenefitController extends AbstractController
             ->setState('Validé');
         $entity->persist($benefit);
         $entity->flush();
+        $this->addFlash('success', 'Le beneficiaire du client a été créé');
         return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
     }
 }
