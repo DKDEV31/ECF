@@ -51,7 +51,9 @@ class RegistrationFormType extends AbstractType
                 'first_name' => 'password',
                 'first_options' => [
                     'label' => 'Mot de passe',
-                    'row_attr' => ['class' => 'form-password']
+                    'row_attr' => ['class' => 'form-password'],
+                    'help' => 'Doit contenir au moins une majuscule, une minuscule, un chiffre et un symbole.
+                Longueur minimum de 8 caracteres'
                 ],
                 'second_name' => 'confirmPassword',
                 'second_options' => [
@@ -67,8 +69,6 @@ class RegistrationFormType extends AbstractType
                         'min' => 8,
                     ])
                 ],
-                'help' => 'Doit contenir au moins une majuscule, une minuscule, un chiffre et un symbole.
-                Longueur minimum de 8 caracteres'
             ])
             ->add('adress', TextType::class,[
                 'label' => 'Adresse',
