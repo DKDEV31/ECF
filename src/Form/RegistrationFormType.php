@@ -13,6 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Type;
 
 class RegistrationFormType extends AbstractType
 {
@@ -23,22 +26,23 @@ class RegistrationFormType extends AbstractType
               'label' => 'Prénom',
                 'row_attr' =>['class' => 'form-row'],
                 'constraints' => [
-
+                    new Type([
+                        'type' => 'string'
+                    ])
                 ]
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
                 'row_attr' => ['class' => 'form-row'],
                 'constraints' => [
-
+                    new Type([
+                        'type' => 'string'
+                    ])
                 ]
             ])
             ->add('email', EmailType::class,[
                 'label' => 'Email',
                 'row_attr' => ['class' => 'form-email'],
-                'constraints' => [
-
-                ]
             ])
             ->add('password', RepeatedType::class, [
                 'mapped' => false,
@@ -53,25 +57,32 @@ class RegistrationFormType extends AbstractType
                     'label' => 'Confirmation du mot de passe',
                     'row_attr' => ['class' => 'form-password']
                 ],
-
                 'constraints' => [
-
+                    new Regex([
+                        'pattern' => '/[a-zA-Z]+[\d]+[\W]+/g',
+                        'match' => true
+                    ]),
+                    new Length([
+                        'min' => 8,
+                    ])
                 ]
             ])
             ->add('adress', TextType::class,[
                 'label' => 'Adresse',
                 'mapped' => false,
                 'row_attr' => ['class' => 'form-adress'],
-                'constraints' => [
-
-                ]
             ])
             ->add('zipcode', TextType::class, [
                 'label' => 'Code Postal',
                 'row_attr' => ['class' => 'form-zipcode'],
                 'mapped' => false,
                 'constraints' => [
-
+                    new Length([
+                        'max' => 5
+                    ]),
+                    new Type([
+                        'type' => 'integer'
+                    ])
                 ]
             ])
             ->add('city', TextType::class, [
@@ -79,14 +90,18 @@ class RegistrationFormType extends AbstractType
                 'row_attr' => ['class' => 'form-city'],
                 'mapped' => false,
                 'constraints' => [
-
+                    new Type([
+                        'type'=>'string'
+                    ])
                 ]
             ])
             ->add('phone', TelType::class, [
                 'label' => 'Telephone',
                 'row_attr' => ['class' => 'form-phone'],
                 'constraints' => [
-
+                    new Length([
+                        'max'=>10
+                    ])
                 ]
             ])
             ->add('birthDate', BirthdayType::class, [
@@ -94,9 +109,6 @@ class RegistrationFormType extends AbstractType
                 'view_timezone' => 'Europe/Paris',
                 'widget' => 'single_text',
                 'row_attr' => ['class' => 'form-birthdate'],
-                'constraints' => [
-
-                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'S\'inscrire',
