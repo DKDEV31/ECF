@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class RequestAccountType extends AbstractType
 {
@@ -29,6 +30,13 @@ class RequestAccountType extends AbstractType
                 'label' => 'Inserez une piece d\'identité valide',
                 'row_attr' => ['class' => 'form-file'],
                 'mapped' => false,
+                'help' => 'Limité a 2 Mo, uniquement jpg, jpeg et pdf',
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => ['application/pdf','image/jpeg']
+                    ])
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Demande de compte',
