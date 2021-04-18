@@ -31,7 +31,7 @@ class RequestDeleteAccountType extends AbstractType
                         ]
                     ])
                 ],
-                'help' => 'Maximum 2 Mo, seulement .jpeg et .jpg'
+                'help' => 'Maximum 2 Mo, seulement .jpeg, .jpg et .pdf'
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Demande de cloture',
