@@ -3,33 +3,33 @@
 {% block title %}Votre espace Banquier{% endblock %}
 {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
-    {{ encore_entry_link_tags('banker') }}
+    {{ encore_entry_link_tags('BankerClients') }}
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_script_tags('banker') }}
+    {{ encore_entry_script_tags('BankerClients') }}
 {% endblock %}
 {% block callToAction %}
 {% endblock %}
 {% block content %}
-    <div class="grid-container">
-        <aside class="side-menu">
-
+    <div class="container-grid-horizontal">
+        <aside class="main-box side-menu">
+            <ul>
+                <li><a href="{{ path('app_banker_request', {bankerId: app.user.id}) }}" class="link">Demandes</a></li>
+                <li><a href="{{ path('app_banker', {bankerId: app.user.id}) }}" class="link">Clients</a></li>
+            </ul>
         </aside>
-        <main class="main-menu">
+        <main class="main-box">
             {% if clients is empty %}
             <p>Vous n'avez pas encore de clients</p>
             {% else %}
                 {% for client in clients %}
-                    <div class="client-container">
-                        <div class="client-info">
+                    <div class="box">
+                        <div class="box-content">
                             <span>Client N° {{ client.id }}</span>
                             <span>{{ client.firstname|capitalize}} {{ client.lastname|capitalize}}</span>
                         </div>
-                        <div class="client-style">
-                            <div class="client-style-gradient"></div>
-                            <img src="{{ asset('/svg/waveSvg.svg') }}" alt="wave form" class="client-style-img">
-                        </div>
+                        <img src="{{ asset('/svg/circle-scatter-haikei.svg') }}" alt="svg forms">
                     </div>
                 {% endfor %}
             {% endif %}

@@ -11,26 +11,33 @@
     {{ encore_entry_script_tags('login') }}
 {% endblock %}
 {% block content%}
-<main class="form-container">
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-        <div class="form-email">
-            <label for="inputEmail">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" required autofocus>
-        </div>
-        <div class="form-password">
-            <label for="inputPassword">Password</label>
-            <input type="password" name="password" id="inputPassword" required>
-        </div>
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+    <main class="container-grid-form">
+        <div class="form-container">
+            <form method="post">
+                {% if error %}
+                    <div class="form-login-error">
+                        <div>
+                            <span class="error-box">Erreur</span>
+                            <span>{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="form-email">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" required autofocus>
+                </div>
+                <div class="form-password">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="password" id="inputPassword" required>
+                </div>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
 
-        <button class="btn" type="submit">
-            Connexion
-        </button>
-    </form>
-</main>
+                <button class="btn" type="submit">
+                    Connexion
+                </button>
+            </form>
+        </div>
+    </main>
 {% endblock %}
