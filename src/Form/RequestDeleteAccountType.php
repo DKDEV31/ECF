@@ -18,7 +18,8 @@ class RequestDeleteAccountType extends AbstractType
     {
         $builder
             ->add('signature', FileType::class, [
-                'label' => 'Demande de cloture',
+                'label' => 'Demande de cloture manuscrite',
+                'row_attr' => ['class'=>'form-file'],
                 'mapped' => false,
             ])
             ->add('submit', SubmitType::class, [

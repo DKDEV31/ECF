@@ -1,13 +1,7 @@
-.side-menu{
-  display: none;
-}
 .box{
-  grid-auto-flow: column;
   justify-content: space-between;
-  position: relative;
   .box-content{
     align-items: start;
-    gap: 5px;
   }
   .box-action{
     display: flex;

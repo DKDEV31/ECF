@@ -3,17 +3,17 @@
 {% block title %}Demande de beneficiare{% endblock %}
 {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
-    {{ encore_entry_link_tags('client') }}
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_script_tags('client') }}
 {% endblock %}
 {% block callToAction %}
 {% endblock %}
 {% block content %}
-    <main class="form-container">
-        {{ form_start(form) }}
-        {{ form_end(form) }}
+    <main class="container-grid-form">
+        <div class="form-container">
+            {{ form_start(form) }}
+            {{ form_end(form) }}
+        </div>
     </main>
 {% endblock %}

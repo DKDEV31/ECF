@@ -3,20 +3,23 @@
 {% block title %}Demande N°{{ request.id }}{% endblock %}
 {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
-    {{ encore_entry_link_tags('banker') }}
+    {{ encore_entry_link_tags('BankerRequestView') }}
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_script_tags('banker') }}
+    {{ encore_entry_script_tags('BankerRequestView') }}
 {% endblock %}
 {% block callToAction %}
 {% endblock %}
 {% block content %}
-    <div class="grid-container">
-        <aside class="side-menu">
-
+    <div class="container-grid-horizontal">
+        <aside class="main-box side-menu">
+            <ul>
+                <li><a href="{{ path('app_banker_request', {bankerId: app.user.id}) }}" class="link">Demandes</a></li>
+                <li><a href="{{ path('app_banker', {bankerId: app.user.id}) }}" class="link">Clients</a></li>
+            </ul>
         </aside>
-        <main class="main-menu">
+        <main class="main-box">
             <p>Nom du client: {{ client.lastname }}</p>
             <p>Prénom du client: {{ client.firstname }}</p>
             <p>Type de demande: {{ request.type }}</p>
@@ -24,17 +27,35 @@
             <p>Nom du beneficiare: {{ request.Name }}</p>
             <p>Nom de la Banque: {{ request.BankName }}</p>
             <p>Numéro de compte: {{ request.AccountNumber }}</p>
-            <a href="{{ path('app_banker_benefit_create', {bankerId: app.user.id, requestId: request.id}) }}" class="btn">Accepter la demande</a>
-            <a href="{{ path('app_banker_request_benefit_deny', {bankerId: app.user.id, requestId: request.id}) }}" class="btn-danger">Refuser la demande</a>
+            <div class="request-button">
+                <a href="{{ path('app_banker_benefit_create', {bankerId: app.user.id, requestId: request.id}) }}" class="btn">
+                    <i class="far fa-check-circle"></i>
+                </a>
+                <a href="{{ path('app_banker_request_benefit_deny', {bankerId: app.user.id, requestId: request.id}) }}" class="btn-danger">
+                    <i class="far fa-times-circle"></i>
+                </a>
+            </div>
             {% elseif request.type != 'Suppression de compte' %}
             <img src="{{ asset('CNI/' ~ request.idCard) }}" alt="CNI" class="request-view-img">
-            <a href="{{ path('app_banker_account_create', {bankerId: app.user.id, requestId: request.id}) }}" class="btn">Accepter la demande</a>
-            <a href="{{ path('app_banker_request_accountAdd_deny', {bankerId: app.user.id, requestId: request.id}) }}" class="btn-danger">Refuser la demande</a>
+            <div class="request-button">
+                <a href="{{ path('app_banker_account_create', {bankerId: app.user.id, requestId: request.id}) }}" class="btn">
+                    <i class="far fa-check-circle"></i>
+                </a>
+                <a href="{{ path('app_banker_request_accountAdd_deny', {bankerId: app.user.id, requestId: request.id}) }}" class="btn-danger">
+                    <i class="far fa-times-circle"></i>
+                </a>
+            </div>
             {% else %}
             <p>Numéro de compte: {{ request.accountNumber }}</p>
             <img src="{{ asset('signature/' ~ request.CloseRequest) }}" alt="signature" class="request-view-img">
-            <a href="{{ path('app_banker_account_delete', {bankerId: app.user.id, requestId: request.id}) }}" class="btn">Accepter la demande</a>
-            <a href="{{ path('app_banker_request_accountDelete_deny', {bankerId: app.user.id, requestId: request.id}) }}" class="btn-danger">Refuser la demande</a>
+            <div class="request-button">
+                <a href="{{ path('app_banker_account_delete', {bankerId: app.user.id, requestId: request.id}) }}" class="btn">
+                    <i class="far fa-check-circle"></i>
+                </a>
+                <a href="{{ path('app_banker_request_accountDelete_deny', {bankerId: app.user.id, requestId: request.id}) }}" class="btn-danger">
+                    <i class="far fa-times-circle"></i>
+                </a>
+            </div>
             {% endif %}
         </main>
     </div>

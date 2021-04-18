@@ -26,7 +26,8 @@ class RequestAccountType extends AbstractType
                 ]
             ])
             ->add('idCard', FileType::class, [
-                'label' => 'Pieces d\'identité',
+                'label' => 'Inserez une piece d\'identité valide',
+                'row_attr' => ['class' => 'form-file'],
                 'mapped' => false,
             ])
             ->add('submit', SubmitType::class, [

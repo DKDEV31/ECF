@@ -23,7 +23,7 @@ class ClientRequestController extends AbstractController
     #[Route('/client/{userId}/request', name: 'app_client_request')]
     public function requestClient(EntityManagerInterface $entity, $userId): Response{
         $user = $this->getUser();
-        if($user->getId() !== $userId){
+        if($user->getId() != $userId){
             return $this->redirectToRoute('app_client',['userId' => $user->getId()]);
         }
         $accountRequests = $entity->getRepository(RequestAccount::class)
@@ -44,7 +44,7 @@ class ClientRequestController extends AbstractController
         $requestAccount = new RequestAccount();
         /** @var  Client $user */
         $user = $this->getUser();
-        if($user->getId() !== $userId){
+        if($user->getId() != $userId){
             return $this->redirectToRoute('app_client', ['userId' => $user->getId()]);
         }
         $form = $this->createForm(RequestAccountType::class, $requestAccount);
@@ -71,11 +71,11 @@ class ClientRequestController extends AbstractController
     public function deleteAccount(Request $req, EntityManagerInterface $entity, $accountId,$userId): Response{
         /** @var Client $user */
         $user = $this->getUser();
-        $account = $entity->getRepository(Account::class)
-            ->findOneBy(['id' => $accountId]);
-        if($user->getId() !== $userId){
+        if($user->getId() != $userId){
             return $this->redirectToRoute('app_client', ['userId'=> $user->getId()]);
         }
+        $account = $entity->getRepository(Account::class)
+            ->findOneBy(['id' => $accountId]);
         $request = new RequestDelete();
         $form = $this->createForm(RequestDeleteAccountType::class, $request);
         $form->handleRequest($req);
@@ -104,7 +104,7 @@ class ClientRequestController extends AbstractController
         $requestBenefit = new RequestBenefit();
         /** @var Client $user */
         $user = $this->getUser();
-        if($user->getId() !== $userId){
+        if($user->getId() != $userId){
             return $this->redirectToRoute('app_client', ['userId'=>$user->getId()]);
         }
         $account = $entity->getRepository(Account::class)->findOneBy(['id' => $accountId]);
