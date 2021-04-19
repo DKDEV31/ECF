@@ -1,0 +1,29 @@
+.side-menu{
+  display: none;
+}
+.box{
+  grid-auto-flow: column;
+  justify-content: space-between;
+  position: relative;
+  .box-content{
+    align-items: start;
+    gap: 5px;
+  }
+  .box-action{
+    display: flex;
+    gap: 15px;
+    overflow: hidden;
+    width: 0px;
+    opacity: 0;
+    a{
+      display: block;
+    }
+  }
+  &:hover{
+    .box-action{
+      width: 100%;
+      opacity: 1;
+      transition: all .5s ease-in-out;
+    }
+  }
+}

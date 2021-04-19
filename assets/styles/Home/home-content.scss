@@ -1,0 +1,50 @@
+$light-background-color: rgba(201, 200, 200, 0.1);
+main{
+  display:grid;
+  grid-auto-flow: row;
+  gap: 15px;
+  .fonction-container {
+    background-color: $light-background-color;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 375px;
+    .fonction-content{
+      text-align: center;
+      p{
+        font-size: 14px;
+      }
+    }
+    .fonction_img{
+      width: 195px;
+      height: auto;
+    }
+  }
+}
+@media screen and (min-width: 425px){
+  main{
+    .fonction-container{
+      max-width: 100%;
+      border-radius: 14px;
+      .fonction-content{
+        text-align: center;
+        p{
+          font-size: 16px;
+        }
+      }
+    }
+
+  }
+}
+@media screen and (min-width: 700px){
+  main{
+    .fonction-container{
+      flex-direction: row;
+      .fonction-content{
+        text-align: left;
+      }
+    }
+  }
+}

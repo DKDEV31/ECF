@@ -1,0 +1,1 @@
+import './styles/BankProduct/bank-product-content.scss'

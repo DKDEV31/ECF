@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte n°{{ account.accountNumber }}{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('ClientOpsList') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('ClientOpsList') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <div class="container-grid-horizontal">
+        <aside class="main-box side-menu">
+            <ul>
+                <li><a href="{{ path('app_client', {userId: app.user.id}) }}" class="link">Comptes</a></li>
+                <li><a href="{{ path('app_client_transfer', {userId: app.user.id}) }}" class="link">Virements</a></li>
+                <li><a href="{{ path('app_client_request', {userId: app.user.id}) }}" class="link">Demandes</a></li>
+                <li><a href="{{ path('app_client_benefit_view', {userId: app.user.id}) }}" class="link">Bénéficiares</a></li>
+            </ul>
+        </aside>
+        <main class="main-box">
+            <p>Compte n°{{ account.accountNumber }}</p>
+            {% for transfer in transfers %}
+                <div class="box">
+                    <div class="box-content">
+                        <span>Virement depuis: {{ account.Type}}</span>
+                        <span>{{ transfer.amount }}€</span>
+                        <span>Vers: {{ transfer.Benefit.Name }}</span>
+                    </div>
+                    <div class="accoun-actions">
+                    </div>
+                </div>
+            {% endfor %}
+        </main>
+    </div>
+{% endblock %}

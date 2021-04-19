@@ -1,0 +1,23 @@
+.box{
+  justify-content: space-between;
+  .box-content{
+    align-items: start;
+  }
+  .box-action{
+    display: flex;
+    gap: 15px;
+    overflow: hidden;
+    width: 0px;
+    opacity: 0;
+    a{
+      display: block;
+    }
+  }
+  &:hover{
+    .box-action{
+      width: 100%;
+      opacity: 1;
+      transition: all .5s ease-in-out;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos Virements{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('ClientTransfer') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('ClientTransfer') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <div class="container-grid-horizontal">
+        <aside class="main-box side-menu">
+            <ul>
+                <li><a href="{{ path('app_client', {userId: app.user.id}) }}" class="link">Comptes</a></li>
+                <li><a href="{{ path('app_client_transfer', {userId: app.user.id}) }}" class="link">Virements</a></li>
+                <li><a href="{{ path('app_client_request', {userId: app.user.id}) }}" class="link">Demandes</a></li>
+                <li><a href="{{ path('app_client_benefit_view', {userId: app.user.id}) }}" class="link">Bénéficiares</a></li>
+            </ul>
+        </aside>
+        <main class="main-box">
+           <p>Veuillez selectionner le compte débiteur</p>
+            {% for account in accounts %}
+                <div class="box" data-id="{{ account.id }}" data-user="{{ app.user.id }}">
+                    <div class="box-content" >
+                        <span>{{ account.type }}</span>
+                        <span>{{ account.amount }}€</span>
+                    </div>
+                    <img src="{{ asset('/svg/circle-scatter-haikei.svg') }}" alt="form svg">
+                </div>
+            {% endfor %}
+        </main>
+    </div>
+{% endblock %}

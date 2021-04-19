@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre espace client{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('ClientAccount') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('ClientAccount') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <div class="container-grid-horizontal">
+        <aside class="main-box side-menu">
+            <ul>
+                <li><a href="{{ path('app_client', {userId: app.user.id}) }}" class="link">Comptes</a></li>
+                <li><a href="{{ path('app_client_transfer', {userId: app.user.id}) }}" class="link">Virements</a></li>
+                <li><a href="{{ path('app_client_request', {userId: app.user.id}) }}" class="link">Demandes</a></li>
+                <li><a href="{{ path('app_client_benefit_view', {userId: app.user.id}) }}" class="link">Bénéficiares</a></li>
+            </ul>
+        </aside>
+        <main class="main-box">
+            {% if accounts is empty %}
+            <p>Veuillez créer un compte</p>
+            <a href="{{ path('app_client_request_account_add', {userId: app.user.id}) }}" class="btn-info addAccount">Ajouter un compte</a>
+            {% else %}
+            <a href="{{ path('app_client_request_account_add', {userId: app.user.id}) }}" class="btn-info addAccount">Ajouter un compte</a>
+            {% for account in accounts %}
+                <div class="box">
+                    <div class="box-content">
+                        <span>{{ account.type }}</span>
+                        <span>{{ account.amount }}€</span>
+                    </div>
+                    <div class="box-action">
+                        <a href="{{ path('app_client_account_view', {userId: app.user.id, accountId: account.id}) }}" class="btn-outlined-info">
+                            <i class="far fa-eye"></i>
+                        </a>
+                        <a href="{{ path('app_client_request_account_delete', {userId: app.user.id, accountId: account.id}) }}" class="btn-outlined-danger" role="button">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+            {% endif %}
+        </main>
+    </div>
+{% endblock %}

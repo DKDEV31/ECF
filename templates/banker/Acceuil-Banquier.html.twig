@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre espace Banquier{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('BankerClients') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('BankerClients') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <div class="container-grid-horizontal">
+        <aside class="main-box side-menu">
+            <ul>
+                <li><a href="{{ path('app_banker_request', {bankerId: app.user.id}) }}" class="link">Demandes</a></li>
+                <li><a href="{{ path('app_banker', {bankerId: app.user.id}) }}" class="link">Clients</a></li>
+            </ul>
+        </aside>
+        <main class="main-box">
+            {% if clients is empty %}
+            <p>Vous n'avez pas encore de clients</p>
+            {% else %}
+                {% for client in clients %}
+                    <div class="box">
+                        <div class="box-content">
+                            <span>Client N° {{ client.id }}</span>
+                            <span>{{ client.firstname|capitalize}} {{ client.lastname|capitalize}}</span>
+                        </div>
+                        <img src="{{ asset('/svg/circle-scatter-haikei.svg') }}" alt="svg forms">
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </main>
+    </div>
+{% endblock %}

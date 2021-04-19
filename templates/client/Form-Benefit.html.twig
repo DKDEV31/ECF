@@ -1,0 +1,19 @@
+{% extends 'base.html.twig.' %}
+
+{% block title %}Demande de beneficiare{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <main class="container-grid-form">
+        <div class="form-container">
+            {{ form_start(form) }}
+            {{ form_end(form) }}
+        </div>
+    </main>
+{% endblock %}

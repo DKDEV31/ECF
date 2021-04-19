@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits Bancaires{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('bankProduct') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('bankProduct') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <main class="container-grid">
+        <div class="featurette" id="featurette-1">
+            <div class="featurette-content">
+                <h3>Compte Courant</h3>
+                <p>Un compte classique pour stocker vos revenues
+                sans rémuneration particuliere et pour une utilisation quotidienne.</p>
+                <p>Frais de tenue de compte: 15,00€/an</p>
+                {% if app.user %}
+                    <a href="{{ path('app_client_request_account_add', {userId: app.user.id}) }}" role="button" class="btn-info">Ouvrir un compte</a>
+                {% else %}
+                    <a href="{{ path('app_register') }}" class="btn-info">Ouvrir un compte</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="featurette" id="featurette-2">
+            <div class="featurette-content">
+                <h3>Compte Epargne</h3>
+                <p>Notre compte epargne rémunéré à 0.75%.
+                    Utile pour stocker votre épargne et
+                    faire travailler votre argent.
+                </p>
+                <p>Frais de tenue de compte: 10,00€/an</p>
+                {% if app.user %}
+                    <a href="{{ path('app_client_request_account_add', {userId: app.user.id}) }}" role="button" class="btn-info">Ouvrir un compte</a>
+                {% else %}
+                    <a href="{{ path('app_register') }}" class="btn-info">Ouvrir un compte</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="featurette" id="featurette-3">
+            <div class="featurette-content">
+                <h3>Compte Bourse</h3>
+                <p>Le compte qui fait travailler votre argent à votre place
+                    avec un taux benefice/risque modéré. Il sera supervisé
+                    par un de nos traders qualifié.
+                </p>
+                <p>Frais de tenue de compte: 20,00€/an</p>
+                {% if app.user %}
+                    <a href="{{ path('app_client_request_account_add', {userId: app.user.id}) }}" role="button" class="btn-info">Ouvrir un compte</a>
+                {% else %}
+                    <a href="{{ path('app_register') }}" class="btn-info">Ouvrir un compte</a>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

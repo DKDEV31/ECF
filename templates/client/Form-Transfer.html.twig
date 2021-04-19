@@ -1,0 +1,23 @@
+{% extends 'base.html.twig.' %}
+
+{% block title %}Effectuer un virement{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+{% block callToAction %}
+{% endblock %}
+{% block content %}
+    <main class="container-grid-form">
+        <div class="form-container">
+        {{ form_start(form) }}
+            <div class="form-currency">
+                {{ form_label(form.amount) }}
+                <span class="currency-container">{{ form_widget(form.amount) }}</span>
+            </div>
+        {{ form_end(form) }}
+        </div>
+    </main>
+{% endblock %}

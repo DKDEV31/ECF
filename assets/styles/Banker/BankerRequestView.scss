@@ -1,0 +1,20 @@
+.main-box{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.request-view-img{
+  width: auto;
+  max-height: 300px;
+}
+.request-button{
+  display: flex;
+  padding: 0 40px;
+  gap: 45px;
+  .btn, .btn-danger{
+    padding: 5px 10px;
+    font-size: 1.5em;
+  }
+}
