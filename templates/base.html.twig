@@ -65,9 +65,13 @@
         <div class="call-to-action">
             <img src="{{ asset('/svg/credit-card.svg') }}" alt="card img" class="call-to-action-img">
             <div class="call-to-action-content">
-                <h2>Lorem ipsum</h2>
-                <p>subtitle</p>
-                <a href="#" class="btn" role="button">Do this</a>
+                <h2>La vraie Banque accessible à tous</h2>
+                <p>Bienvenue chez Banqio</p>
+                {% if app.user %}
+                <a href="{{ path('app_client_request_account_add', {userId: app.user.id}) }}" class="btn" role="button">Ouvrir un compte</a>
+                {% else %}
+                <a href="{{ path('app_register') }}" class="btn" role="button">Ouvrir un compte</a>
+                {% endif %}
             </div>
         </div>
         {% endblock %}
@@ -76,31 +80,29 @@
                 <main>
                     <div class="fonction-container">
                         <div class="fonction-content">
-                            <h4>Lorem ipsum</h4>
-                            <p>nfurngnurugurguurungrngurngur
-                            grnugnurngnunrungrngnrngnrjgnunrgr
-                            grgnuruigehuigeuiguiernguneruinguiern
-                            grnrygurenugneruinguieruignerunguernu</p>
+                            <h4>Paiement en ligne</h4>
+                            <p>Grace à Banqio vous pourrez beneficier,
+                            en plus de votre carte, d'une carte ephemere
+                            pour réaliser vos paiements en ligne en toute sécurité.</p>
                         </div>
                         <img src="{{ asset('/svg/online-payment-svg.svg') }}" alt="online payments" class="fonction_img">
                     </div>
                     <div class="fonction-container">
                         <div class="fonction-content">
-                            <h4>Lorem ipsum</h4>
-                            <p>nfurngnurugurguurungrngurngur
-                                grnugnurngnunrungrngnrngnrjgnunrgr
-                                grgnuruigehuigeuiguiernguneruinguiern
-                                grnrygurenugneruinguieruignerunguernu</p>
+                            <h4>Transfert d'argent</h4>
+                            <p>Avec Banqio et son systeme de transfert de fond innovant,
+                            vous pourrez effectuer des transferts de fond internes
+                            ou externes sans frais supplementaires et de façon tres
+                            rapide.</p>
                         </div>
                         <img src="{{ asset('/svg/transfer-money.svg') }}" alt="online payments" class="fonction_img">
                     </div>
                     <div class="fonction-container">
                         <div class="fonction-content">
-                            <h4>Lorem ipsum</h4>
-                            <p>nfurngnurugurguurungrngurngur
-                                grnugnurngnunrungrngnrngnrjgnunrgr
-                                grgnuruigehuigeuiguiernguneruinguiern
-                                grnrygurenugneruinguieruignerunguernu</p>
+                            <h4>Compte Bourse</h4>
+                            <p>Banqio benefie d'une equipe de trader experimenté. Cela vous
+                            permet d'ouvrir un compte bourse en toute sécurité et en beneficiant
+                            du meilleur taux bénéfice/risque du marché. </p>
                         </div>
                         <img src="{{ asset('/svg/personal-finance.svg') }}" alt="online payments" class="fonction_img">
                     </div>
