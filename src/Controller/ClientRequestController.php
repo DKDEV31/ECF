@@ -59,7 +59,7 @@ class ClientRequestController extends AbstractController
             $requestAccount->setState('En Attente');
             $entityManager->persist($requestAccount);
             $entityManager->flush();
-            //Envoie d'une notif à l'utilisateur
+            $this->addFlash('success', 'Votre demande de compte a été envoyée');
             return $this->redirectToRoute('app_client_request', ['userId'=>$user->getId()]);
         }
         return $this->render('client/Form-Account.html.twig',[
@@ -91,7 +91,7 @@ class ClientRequestController extends AbstractController
             $request->setAccountNumber($account->getAccountNumber());
             $entity->persist($request);
             $entity->flush();
-            //notification a l'utilisateur pour lui confirmer le bon déroulé de l'action
+            $this->addFlash('success', 'Votre demande de supression de compte a été envoyée');
             return $this->redirectToRoute('app_client', ['userId'=>$user->getId()]);
         }
         return $this->render('client/Form-Delete-Account.html.twig', [
@@ -119,7 +119,7 @@ class ClientRequestController extends AbstractController
                 ->setType('Ajout de beneficiaire');
             $entity->persist($requestBenefit);
             $entity->flush();
-            //notification du bon deroulement et creation d'une notif banquier
+            $this->addFlash('success', 'Votre demande d\'ajout de beneficiare a été envoyée');
             return $this->redirectToRoute('app_client_request', ['userId'=>$user->getId()]);
         }
         return $this->render('client/Form-Benefit.html.twig', [

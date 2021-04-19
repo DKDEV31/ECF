@@ -56,7 +56,7 @@ class ClientTransferController extends AbstractController
             $transfer->setAccount($accountToDebit);
             $entity->persist($transfer);
             $entity->flush();
-            //Notification a l'utilisateur.
+            $this->addFlash('success', 'Votre virement a été efféctué');
             return $this->redirectToRoute('app_client', ['userId'=>$user->getId()]);
         }
         return $this->render('client/Form-Transfer.html.twig', [

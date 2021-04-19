@@ -30,9 +30,8 @@ class BankerAccountController extends AbstractController
         $entity->persist($account);
         $request->setState('Validé');
         $entity->flush();
+        $this->addFlash('success', 'Le compte du client a été créé');
         return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
-        //notification du bon déroulement de l'operation.
-        //envoie d'une notification a l'utilisateur pour l'informer de la création de son compte.
     }
 
     #[Route('/banker/{bankerId}/account/delete/{requestId}', name: 'app_banker_account_delete')]
@@ -51,6 +50,7 @@ class BankerAccountController extends AbstractController
         $entity->persist($request);
         $entity->remove($account);
         $entity->flush();
+        $this->addFlash('success', 'Le compte client a bien été supprimé');
         return $this->redirectToRoute('app_banker_request', ['bankerId'=>$banker->getId()]);
         //Notif
     }

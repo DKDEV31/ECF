@@ -55,7 +55,7 @@ class ClientBenefitController extends AbstractController
         $benefit = $entity->getRepository(Benefit::class)->findOneBy(['id'=>$benefitId]);
         $entity->remove($benefit);
         $entity->flush();
-        //Notification du bon déroulement a l'utilisateur
+        $this->addFlash('success', 'Votre bénéficiare a été supprimé');
         return $this->redirectToRoute('app_client_benefit_view', ['userId'=>$user->getId()]);
     }
 

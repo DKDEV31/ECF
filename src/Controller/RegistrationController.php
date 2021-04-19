@@ -22,16 +22,13 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //format the adress field
             $adress = sprintf('%s-%s-%s',
                 $form->get('adress')->getData(),
                 $form->get('zipcode')->getData(),
                 $form->get('city')->getData()
             );
             $client->setAdress($adress);
-            //set default role
             $client->setRoles(['ROLE_CLIENT']);
-            // encode the plain password
             $client->setPassword(
                 $passwordEncoder->encodePassword(
                     $client,
@@ -42,13 +39,13 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($client);
             $entityManager->flush();
-            // do anything else you need here, like send an email
+            $this->addFlash('success', 'Vous etes bien enregistré');
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $client,
                 $request,
                 $authenticator,
-                'main' // firewall name in security.yaml
+                'main'
             );
         }
 
