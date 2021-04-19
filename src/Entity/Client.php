@@ -22,7 +22,7 @@ class Client extends User
     private $AccountRequest;
 
     /**
-     * @ORM\OneToMany(targetEntity=Account::class, mappedBy="Client")
+     * @ORM\OneToMany(targetEntity=Account::class, mappedBy="Client", orphanRemoval=true)
      */
     private $Accounts;
 
