@@ -184,9 +184,8 @@ header{
 }
 .call-to-action{
     display: none;
-    width: 538px;
+    width: fit-content;
     margin: auto;
-    justify-content: space-between;
     padding: 30px;
     align-items: center;
     .call-to-action-img{
@@ -199,6 +198,10 @@ header{
         gap: 15px;
         .btn{
             margin-top:20px;
+            max-width: 200px;
+        }
+        h2{
+            font-size: 19px;
         }
     }
 }
@@ -480,7 +483,9 @@ aside.side-menu{
 }
 @media screen and (min-width: 700px){
     .call-to-action{
-        display: flex;
+        display: grid;
+        grid-auto-flow: column;
+        gap: 40px;
     }
     header{
         .navbar{
