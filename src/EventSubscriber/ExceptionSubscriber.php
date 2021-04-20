@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\ORMInvalidArgumentException;
 use PDOException;
@@ -25,6 +26,11 @@ class ExceptionSubscriber implements EventSubscriberInterface
             $response = new RedirectResponse('/');
             $event->setResponse($response);
         } else if($exception instanceof PDOException){
+            $event->getRequest()->getSession()->getFlashBag()
+                ->add('danger', 'Une erreur est survenue avec la base de données');
+            $response = new RedirectResponse('/');
+            $event->setResponse($response);
+        } else if($exception instanceof ConnectionException){
             $event->getRequest()->getSession()->getFlashBag()
                 ->add('danger', 'Une erreur est survenue avec la base de données');
             $response = new RedirectResponse('/');
