@@ -62,7 +62,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'constraints' => [
                     new Regex([
-                        'pattern' => '/[a-zA-Z]+[\d]+[\W]+/g',
+                        'pattern' => '/[a-zA-Z]+[\d]+[\W]+/',
                         'match' => true
                     ]),
                     new Length([
@@ -84,7 +84,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 5
                     ]),
                     new Type([
-                        'type' => 'integer'
+                        'type' => 'string'
                     ])
                 ]
             ])

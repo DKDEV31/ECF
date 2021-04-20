@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}BanqIo{% endblock %}</title>
@@ -25,8 +25,8 @@
                 <img src="{{ asset('/svg/surface1.svg') }}" alt="logo bank">
             </div>
             <nav class="navbar">
-                <a href="{{ path('app_home') }}"class="link">Acceuil</a>
-                <a href="{{ path('app_bank_product') }}"class="link">Nos produits bancaires</a>
+                <a href="{{ path('app_home') }}" class="link">Acceuil</a>
+                <a href="{{ path('app_bank_product') }}" class="link">Nos produits bancaires</a>
             </nav>
             <div class="navmenu">
                 <div class="dropdown-menu" role="button">
@@ -39,14 +39,14 @@
         </header>
         <div class="navToggleMenu">
             {% if app.user.roles is not defined %}
-            <a href="{{ path('app_home') }}"class="link">Acceuil</a>
-            <a href="{{ path('app_bank_product') }}"class="link">Nos produits bancaires</a>
+            <a href="{{ path('app_home') }}" class="link">Acceuil</a>
+            <a href="{{ path('app_bank_product') }}" class="link">Nos produits bancaires</a>
             <a href="{{ path('app_login') }}" class="link">Connexion</a>
             <a href="{{ path('app_register') }}" class="link">Inscription</a>
             {% endif %}
             {% if app.user.roles is defined and 'ROLE_CLIENT' in app.user.roles %}
-                <a href="{{ path('app_home') }}"class="link">Acceuil</a>
-                <a href="{{ path('app_bank_product') }}"class="link">Nos produits bancaires</a>
+                <a href="{{ path('app_home') }}" class="link">Acceuil</a>
+                <a href="{{ path('app_bank_product') }}" class="link">Nos produits bancaires</a>
                 <a href="{{ path('app_client', {userId: app.user.id}) }}" class="link">Mes comptes</a>
                 <a href="{{ path('app_client_transfer', {userId: app.user.id}) }}" class="link">Mes virements</a>
                 <a href="{{ path('app_client_request', {userId: app.user.id}) }}" class="link">Mes demandes</a>
@@ -54,8 +54,8 @@
                 <a href="{{ path('app_logout') }}" class="link">Déconnexion</a>
             {% endif %}
             {% if app.user.roles is defined and 'ROLE_BANKER' in app.user.roles %}
-                <a href="{{ path('app_home') }}"class="link">Acceuil</a>
-                <a href="{{ path('app_bank_product') }}"class="link">Nos produits bancaires</a>
+                <a href="{{ path('app_home') }}" class="link">Acceuil</a>
+                <a href="{{ path('app_bank_product') }}" class="link">Nos produits bancaires</a>
                 <a href="{{ path('app_banker_request', {bankerId: app.user.id}) }}" class="link">Demandes</a>
                 <a href="{{ path('app_banker', {bankerId: app.user.id}) }}" class="link">Clients</a>
                 <a href="{{ path('app_logout') }}" class="link">Déconnexion</a>
