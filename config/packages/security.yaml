@@ -1,7 +1,5 @@
 security:
     encoders:
-        App\Entity\User:
-            algorithm: auto
         App\Entity\Banker:
             algorithm: auto
         App\Entity\Client:
@@ -53,4 +51,4 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/client, roles: ROLE_CLIENT }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/banker, roles: ROLE_BANKER }
