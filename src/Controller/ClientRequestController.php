@@ -139,11 +139,10 @@ class ClientRequestController extends AbstractController
             $requestAmount = count($banker->getRequestDeletes()) +
                 count($banker->getRequestBenefits()) +
                 count($banker->getAccountRequest());
-            $bankerInfo[] = [$banker->getId() => $requestAmount];
+            $bankerInfo[$banker->getId()]= $requestAmount;
         }
-        $arrayIndex = array_rand(array_keys($bankerInfo,min($bankerInfo)));
-        $id = array_keys($bankerInfo,min($bankerInfo));
-        $requestedBankerId = count($id) > 1 ? $id[$arrayIndex] : $id;
+        $availableBanker = array_keys($bankerInfo, min($bankerInfo));
+        $requestedBankerId = $availableBanker[array_rand($availableBanker, 1)];
         $requestedBanker = $entityManager->getRepository(Banker::class)->findOneBy(['id'=>$requestedBankerId]);
         return $requestedBanker;
     }
