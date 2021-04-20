@@ -348,6 +348,19 @@ aside.side-menu{
     label{
         font-size: 0.8em;
     }
+    ul{
+        list-style: none;
+        li{
+            font-size: 0.8em;
+            &:before{
+                content: 'Erreur';
+                height: 100%;
+                color: #B0413E;
+                margin-right: 10px;
+                border-radius: 7px;
+            }
+        }
+    }
 }
 .form-file{
     display: flex;
