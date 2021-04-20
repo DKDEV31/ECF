@@ -84,7 +84,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 5
                     ]),
                     new Type([
-                        'type' => 'integer'
+                        'type' => 'string'
                     ])
                 ]
             ])
