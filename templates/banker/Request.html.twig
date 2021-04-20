@@ -20,7 +20,7 @@
             </ul>
         </aside>
         <main class="main-box">
-            {% if account is empty and delete is empty%}
+            {% if account is empty and delete is empty and benefit is empty%}
                 <p>Vous n'avez pas encore de demande en cours</p>
             {% else %}
                 {% for request in account %}
