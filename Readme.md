@@ -1,6 +1,6 @@
 # ECF
 ---
-Liens vers Jira : https://trello.com/b/OROsUvoS/ecf-kanban
+Liens vers Jira : https://dkoindev.atlassian.net/jira/software/projects/BANK/boards/1
 ---
 ### Environement de développement :
 
