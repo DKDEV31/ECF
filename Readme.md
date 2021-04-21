@@ -1,7 +1,6 @@
 # ECF
 ---
-Liens vers Jira : https://dkoindev.atlassian.net/jira/software/projects/BANK/boards/1
----
+Liens vers Jira : https://dkoindev.atlassian.net/jira/software/projects/BANK/boards/
 ### Environement de développement :
 
 Langages : PHP 8.0.3.
