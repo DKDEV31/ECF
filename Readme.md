@@ -1,5 +1,4 @@
 # ECF
----
 Liens vers Jira : https://dkoindev.atlassian.net/jira/software/projects/BANK/boards/
 ### Environement de développement :
 
@@ -25,7 +24,7 @@ IDE : PHPSTORM.
 4.  Utilisez la commande heroku login pour vous identifier.
 5.  Avoir un depot Git existant ou en créer un.
 6.  Utilisez la commande heroku create pour créer un dyno (app) sur heroku, par la même occasion cela va lier le depot git au dyno
-7.  Reglez vos variables d'environnement. Deux méthodes, soit grace à la commande heroku config:set "Variables a configurer"="Valeur".
+7.  Reglez vos variables d'environnement. Deux méthodes, soit grace à la commande `heroku config:set "Variables a configurer"="Valeur"`.
     Soit en ajoutant un fichier .env.prod avec les variables configuré a l'interieur.
 8.  Tapez la commande hroku open pour ouvrir votre app une fois le code deployé.
 9.  Pour déployer votre code à nouveau, 2 méthodes s'ofrrent à vous, soit avec git push heroku master, soit en liant votre compte heroku avec github et en activant le déploiement automatique aprés chaque commit.
@@ -40,3 +39,7 @@ IDE : PHPSTORM.
 1. Recupérez le schema de votre base de données avec l'utilitaire mysqldump ou par le biais de phpmyadmin.
 2. Restaurez le schema de votre Bdd dans JawsDB avec la commande suivante `mysql -h NEWHOST -u NEWUSER -pNEWPASS NEWDATABASE < backup.sql` ou avec un client type DataGrip de jetBrains
 ---
+### Compte Admin Banquier
+Les comptes banquier ont etés créés en base ils sont composé comme suit:
+* banker"N°"@test.fr pour le mail
+* banker"N°" pour le mot de passe
