@@ -1,5 +1,14 @@
 {
-    "devDependencies": {},
+    "devDependencies": {
+        "@symfony/webpack-encore": "^1.4.0",
+        "autoprefixer": "^10.2.6",
+        "core-js": "^3.0.0",
+        "postcss-loader": "^5.3.0",
+        "regenerator-runtime": "^0.13.2",
+        "sass": "^1.32.8",
+        "sass-loader": "^11.0.1",
+        "webpack-notifier": "^1.6.0"
+    },
     "license": "MIT",
     "private": true,
     "browserslist": [
@@ -12,12 +21,5 @@
         "build": "encore production --progress",
         "heroku-postbuild": "encore production"
     },
-    "dependencies": {
-        "@symfony/webpack-encore": "^1.0.0",
-        "core-js": "^3.0.0",
-        "regenerator-runtime": "^0.13.2",
-        "sass": "^1.32.8",
-        "sass-loader": "^11.0.1",
-        "webpack-notifier": "^1.6.0"
-    }
+    "dependencies": {}
 }
