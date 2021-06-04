@@ -9,7 +9,7 @@
         "sass-loader": "^11.0.1",
         "webpack-notifier": "^1.6.0"
     },
-    "license": "UNLICENSED",
+    "license": "MIT",
     "private": true,
     "browserslist": [
         "defaults"
@@ -20,7 +20,7 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {
+    "dependencies": {}
         "gsap": "^3.6.1"
     }
 }
